@@ -30,7 +30,7 @@ public class Enemy extends Actor
     
     public void turnTowardsTarget()
     {
-        this.turnTowards(MyWorld.targetLocation.getX(), MyWorld.targetLocation.getY());
+        this.turnTowards(MyWorld.targetX, MyWorld.targetY);
     }
     
     public void moveTowardsTarget()
