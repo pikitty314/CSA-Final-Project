@@ -1,28 +1,7 @@
 import java.util.ArrayList;
-import java.util.Collections;
-import java.awt.Point;
 
-public class PathfindTest
+public class Pathfinder
 {
-    public static void main(String[] args)
-    {
-        boolean[][] grid = {
-            {true,false,true,true,true},
-            {true,true,true,false,true},
-            {false,false,true,false,true},
-        };
-
-        Point start = new Point(0,0);
-        Point end = new Point(4,2);
-
-        ArrayList<Point> shortestPath = pathfinder(grid, start, end);
-        // Collections.reverse(shortestPath);
-        for (Point pt : shortestPath)
-        {
-            System.out.println((int)pt.getX() + " " + (int)pt.getY());
-        }
-    }
-
     /**
      * A very simple and probably relatively inefficent pathfinder.
      * 
@@ -33,8 +12,8 @@ public class PathfindTest
      */
     public static ArrayList<Point> pathfinder(boolean[][] grid, Point start, Point end)
     {    
-        int x = (int)start.getX();
-        int y = (int)start.getY();
+        int x = start.getX();
+        int y = start.getY();
         if (x < 0 ||
             y < 0 || 
             x >= grid[0].length || 
@@ -67,7 +46,7 @@ public class PathfindTest
         if (!path.isEmpty())
         {
             // only add this point if a valid path is found
-            path.add(0,start);
+            path.add(0, start);
         }
         // newGrid[y][x] = true; // Should be unnecessary because the ArrayList is deleted anyways?
         return path;

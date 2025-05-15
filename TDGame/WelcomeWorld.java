@@ -11,14 +11,12 @@ public class WelcomeWorld extends World
     GreenfootImage title;
     /**
      * Constructor for objects of class Title.
-     * 
      */
     public WelcomeWorld()
     {    
-        // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
-        super(1280, 720, 1);
+        super(Globals.WindowConstants.windowWidth, Globals.WindowConstants.windowHeight, Globals.WindowConstants.windowScale);
         title = new GreenfootImage("images/VeryBasicTitle.png");
-        title.scale(1280,720);
+        title.scale(Globals.WindowConstants.windowWidth, Globals.WindowConstants.windowHeight);
         setBackground(title);
         
         addObject(new PlayButton(), 640, 400);
