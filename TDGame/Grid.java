@@ -18,23 +18,24 @@ public class Grid
     }
     
     /**
+     * Constructor for objects of class Grid if not a square
+     */
+    public Grid(int xLength, int yLength)
+    {
+        grid = new GridPoint[yLength][xLength];
+    }
+    
+    /**
      * Generates the grid of tiles with a half tile of padding on top.
      * 
      * @return An array of tiles to be added to the world
      */
     public Tile[][]  generateGrid(GreenfootImage[][] tileImages, boolean[][] blocked)
     {
-        int pixelX;
-        int pixelY;
-        int tileSideLength;
+        int tileSideLength = Globals.WorldConstants.gridTileSizePixels;
+        int pixelX = tileSideLength;
+        int pixelY = tileSideLength;
         Tile[][] tileGrid = new Tile[grid.length][grid[0].length];
-        
-        if (Globals.WindowConstants.windowWidth > Globals.WindowConstants.windowHeight)
-        {
-            tileSideLength = (int)(Globals.WindowConstants.windowHeight / (grid.length + 1));
-            pixelX = tileSideLength;
-            pixelY = tileSideLength;
-        }
         
         for (int y = 0; y < grid.length; y++)
         {

@@ -16,9 +16,17 @@ public class GameplayWorld extends World
     public GameplayWorld()
     {
         super(Globals.WindowConstants.windowWidth, Globals.WindowConstants.windowHeight, Globals.WindowConstants.windowScale);
-        grid = new Grid(Globals.WorldConstants.gridSideLength);
-        GreenfootImage[][] images = {{new GreenfootImage("images/blue-box.png"),new GreenfootImage("images/blue-box.png")},{new GreenfootImage("images/blue-box.png"),new GreenfootImage("images/blue-box.png")}};
-        boolean[][] block = {{false,false},{false,false}};
+        grid = new Grid(Globals.WorldConstants.gridXSize, Globals.WorldConstants.gridYSize);
+        GreenfootImage[][] images = new GreenfootImage[Globals.WorldConstants.gridYSize][Globals.WorldConstants.gridXSize];
+        boolean[][] block = new boolean[Globals.WorldConstants.gridYSize][Globals.WorldConstants.gridXSize];
+        for (int i = 0; i < images.length; i++)
+        {
+            for (int j = 0; j < images[i].length; j++)
+            {
+                images[i][j] = new GreenfootImage("images/blue-box.png");
+                block[i][j] = false;
+            }
+        }
         Tile[][] tileGrid = grid.generateGrid(images, block);
         for (Tile[] row : tileGrid)
         {

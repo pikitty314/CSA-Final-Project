@@ -16,6 +16,20 @@ public class Globals
     
     public static class WorldConstants
     {
-        public static final int gridSideLength = 2;
+        public static final int gridXSize = 12;
+        public static final int gridYSize = 9;
+        
+        public static int gridTileSizePixels = 0;        
+        static {
+            if((Globals.WindowConstants.windowWidth / (double)gridXSize) > (Globals.WindowConstants.windowHeight / (double)gridYSize))
+            {
+                gridTileSizePixels = Globals.WindowConstants.windowHeight / (gridYSize + 1);
+            }
+            else
+            {
+                gridTileSizePixels = Globals.WindowConstants.windowWidth / (gridXSize + 1);
+            }
+        }
+        
     }
 }
