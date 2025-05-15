@@ -6,18 +6,62 @@
  */
 public class GridPoint  
 {
+    // Things that appear on screen
     private Tile tile;
-    private Point tilePoint; // Location on the 10x10 grid of tiles
-    private Point pixelPoint; // Location on the grid of pixels
-    private int paddingPixels; // Number of pixels on the left, top, and bottom of the tile
     private Tower tower;
     
-    public GridPoint()
+    // Location on screen
+    private Point tilePoint; // Location on the 10x10 grid of tiles
+    private Point pixelPoint; // Location on the grid of pixels
+    
+    // What can be done at this point
+    private boolean canPlaceTower;
+    private boolean canBeInEnemyPath;
+    
+    public GridPoint(Tile tile, Point tilePoint, Point pixelPoint, boolean canPlaceTower, boolean canBeInEnemyPath)
     {
-        tile = new Tile();
-        tilePoint = new Point(0,0);
-        pixelPoint = new Point(0,0);
-        paddingPixels = 0;
-        tower = new Tower();
+        this.tile = tile;
+        this.tower = null; // Start with no tower
+        
+        this.tilePoint = tilePoint;
+        this.pixelPoint = pixelPoint;
+        
+        this.canPlaceTower = canPlaceTower;
+        this.canBeInEnemyPath = canBeInEnemyPath;
+    }
+    
+    public GridPoint(Tile tile, int tilePointX, int tilePointY, int pixelPointX, int pixelPointY, boolean canPlaceTower, boolean canBeInEnemyPath)
+    {
+        this.tile = tile;
+        this.tower = null; // Start with no tower
+        
+        this.tilePoint = new Point(tilePointX, tilePointY);
+        this.pixelPoint = new Point(pixelPointX, pixelPointY);
+        
+        this.canPlaceTower = canPlaceTower;
+        this.canBeInEnemyPath = canBeInEnemyPath;
+    }
+    
+    
+    // Getters
+    public boolean canPlaceTower() 
+    {
+        return canPlaceTower;
+    }
+    
+    public boolean canBeInEnemyPath()
+    {
+        return canBeInEnemyPath;
+    }
+    
+    // Setters
+    public void setCanPlaceTower(boolean canPlaceTower)
+    {
+        this.canPlaceTower = canPlaceTower;
+    }
+    
+    public void setCanBeInEnemyPath(boolean canBeInEnemyPath)
+    {
+        this.canBeInEnemyPath = canBeInEnemyPath;
     }
 }

@@ -8,6 +8,20 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Tower extends Actor
 {
+    public Tower(GreenfootImage image, Point pixelPosition)
+    {
+        super();
+        this.setImage(image);
+        this.setLocation(pixelPosition.getX(), pixelPosition.getY());
+    }
+    
+    public Tower(GreenfootImage image, int pixelPoseX, int pixelPoseY)
+    {
+        super();
+        this.setImage(image);
+        this.setLocation(pixelPoseX, pixelPoseY);
+    }
+    
     /**
      * Act - do whatever the Tower wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.

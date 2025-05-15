@@ -8,9 +8,25 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Tile extends Actor
 {
-    public Tile()
+    private Point pixelPose;
+    
+    public Tile(GreenfootImage image, Point pixelPosition)
     {
         super();
+        this.setImage(image);
+        this.pixelPose = pixelPosition;
+    }
+    
+    public Tile(GreenfootImage image, int pixelPoseX, int pixelPoseY)
+    {
+        super();
+        this.setImage(image);
+        this.pixelPose = new Point(pixelPoseX, pixelPoseY);
+    }
+    
+    public Point getPixelPose()
+    {
+        return pixelPose;
     }
     
     /**

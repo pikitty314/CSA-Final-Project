@@ -1,3 +1,4 @@
+import greenfoot.*;
 /**
  * Contains all constant and global variables.
  * 
@@ -11,5 +12,10 @@ public class Globals
         public static final int windowWidth = 1280;
         public static final int windowHeight = 720;
         public static final int windowScale = 1;
-    }    
+    }
+    
+    public static class WorldConstants
+    {
+        public static final int gridSideLength = 2;
+    }
 }
