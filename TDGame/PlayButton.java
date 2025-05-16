@@ -8,6 +8,15 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class PlayButton extends Button
 {
+    public PlayButton(int size)
+    {
+        super();
+        GreenfootImage picture = new GreenfootImage("images/button-green.png");
+        picture.scale(size, size);
+        this.setImage(picture);
+        
+    }
+    
     @Override
     public void uponPress()
     {

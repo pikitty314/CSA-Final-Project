@@ -6,7 +6,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class GameplayWorld extends World
+public class GameplayWorld extends BaseWorld
 {
     Grid grid;
     /**
@@ -15,10 +15,10 @@ public class GameplayWorld extends World
      */
     public GameplayWorld()
     {
-        super(Globals.WindowConstants.windowWidth, Globals.WindowConstants.windowHeight, Globals.WindowConstants.windowScale);
-        grid = new Grid(Globals.WorldConstants.gridXSize, Globals.WorldConstants.gridYSize);
-        GreenfootImage[][] images = new GreenfootImage[Globals.WorldConstants.gridYSize][Globals.WorldConstants.gridXSize];
-        boolean[][] block = new boolean[Globals.WorldConstants.gridYSize][Globals.WorldConstants.gridXSize];
+        super(12, 9);
+        grid = new Grid(super.getGridXSize(), super.getGridYSize());
+        GreenfootImage[][] images = new GreenfootImage[super.getGridYSize()][super.getGridXSize()];
+        boolean[][] block = new boolean[super.getGridYSize()][super.getGridXSize()];
         for (int i = 0; i < images.length; i++)
         {
             for (int j = 0; j < images[i].length; j++)
@@ -27,7 +27,7 @@ public class GameplayWorld extends World
                 block[i][j] = false;
             }
         }
-        Tile[][] tileGrid = grid.generateGrid(images, block);
+        Tile[][] tileGrid = grid.generateGrid(images, block,super.getTileSideLength());
         for (Tile[] row : tileGrid)
         {
             for(Tile tile : row)

@@ -30,9 +30,8 @@ public class Grid
      * 
      * @return An array of tiles to be added to the world
      */
-    public Tile[][]  generateGrid(GreenfootImage[][] tileImages, boolean[][] blocked)
+    public Tile[][]  generateGrid(GreenfootImage[][] tileImages, boolean[][] blocked, int tileSideLength)
     {
-        int tileSideLength = Globals.WorldConstants.gridTileSizePixels;
         int pixelX = tileSideLength;
         int pixelY = tileSideLength;
         Tile[][] tileGrid = new Tile[grid.length][grid[0].length];
