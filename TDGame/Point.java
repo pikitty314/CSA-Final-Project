@@ -27,4 +27,18 @@ public class Point
     {
         return y;
     }
+    
+    public String toString()
+    {
+        return "(" + x + ", " + y + ")";
+    }
+    
+    public boolean equals(Point other)
+    {
+        if (this.getX() == other.getX() && this.getY() == other.getY())
+        {
+            return true;
+        }
+        return false;
+    }
 }

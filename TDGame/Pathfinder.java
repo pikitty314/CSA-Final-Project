@@ -2,6 +2,7 @@ import java.util.ArrayList;
 
 public class Pathfinder
 {
+    static int count = 0;
     /**
      * A very simple and probably relatively inefficent pathfinder.
      * 
@@ -14,6 +15,10 @@ public class Pathfinder
     {    
         int x = start.getX();
         int y = start.getY();
+        
+        count++;
+        //System.out.println(count);
+        
         if (x < 0 ||
             y < 0 || 
             x >= grid[0].length || 
@@ -29,7 +34,9 @@ public class Pathfinder
         if (start.equals(end))
         {
             // found the end!
-            path.add(start);
+            path.add(0, start);
+            //System.out.println("\n\n\n\n\n\n\n\n\n\n\n");
+            System.out.println("Path found: " + path + " after " + count + " calls.");
             return path;
         }
         

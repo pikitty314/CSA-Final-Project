@@ -54,6 +54,11 @@ public class GridPoint
         return canBeInEnemyPath;
     }
     
+    public Point getPixelPoint()
+    {
+        return pixelPoint;
+    }
+    
     // Setters
     public void setCanPlaceTower(boolean canPlaceTower)
     {

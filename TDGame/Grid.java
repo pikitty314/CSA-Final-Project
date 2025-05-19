@@ -26,6 +26,14 @@ public class Grid
     }
     
     /**
+     * Gets the GridPoint at (x,y)
+     */
+    public GridPoint getPoint(int x, int y)
+    {
+        return grid[y][x];
+    }
+    
+    /**
      * Generates the grid of tiles with a half tile of padding on top.
      * 
      * @return An array of tiles to be added to the world

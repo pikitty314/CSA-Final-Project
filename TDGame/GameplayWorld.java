@@ -35,6 +35,9 @@ public class GameplayWorld extends BaseWorld
                 addObject(tile,tile.getPixelPose().getX(),tile.getPixelPose().getY());
             }
         }
+        
+        Enemy bee = new Enemy(Pathfinder.pathfinder(grid.getPathfinderGrid(), new Point(0,0), new Point(0,3)),grid);
+        addObject(bee, 0, 0);
     }
     
     public void act()
