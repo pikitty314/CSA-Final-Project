@@ -15,6 +15,8 @@ public class Enemy extends Actor
     private Grid grid;
     private GridPoint currentPoint;
     
+    private boolean pathComplete = false;
+    
     public Enemy(ArrayList<Point> path, Grid grid)
     {
         this.path = new ArrayList<Point>(path);
@@ -36,10 +38,23 @@ public class Enemy extends Actor
     }
     
     public void followPath(int speed)
-    {
-        if (this.getX() == currentPoint.getPixelPoint().getX()
-            && this.getY() == currentPoint.getPixelPoint().getY())
+    {                
+        if (pathComplete)
         {
+            this.setRotation(0);
+            this.move(speed);
+            return;
+        }
+        
+        if ((this.getX() == currentPoint.getPixelPoint().getX()
+            && this.getY() == currentPoint.getPixelPoint().getY()))
+        {
+            if (path.isEmpty())
+            {
+                pathComplete = true;
+                System.out.println("Reached end of path");
+                return;
+            }
             nextPathPoint();
         }
         
@@ -48,7 +63,7 @@ public class Enemy extends Actor
     }
     
     public void nextPathPoint()
-    {
+    {        
         currentPoint = grid.getPoint(path.get(0).getX(),path.get(0).getY());
         path.remove(0);
     }

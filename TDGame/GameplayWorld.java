@@ -1,4 +1,5 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import java.util.ArrayList;
 
 /**
  * Write a description of class GameplayWorld here.
@@ -36,7 +37,17 @@ public class GameplayWorld extends BaseWorld
             }
         }
         
-        Enemy bee = new Enemy(Pathfinder.pathfinder(grid.getPathfinderGrid(), new Point(0,0), new Point(0,3)),grid);
+        ArrayList<Point> path = new ArrayList<Point>();
+        // path = Pathfinder.pathfinder(grid.getPathfinderGrid(), new Point(0,0), new Point(0,3));
+        for (int i = 0; i < 8; i++)
+        {
+            path.add(new Point(i,i));
+        }
+        for (int j = 8; j < 12; j++)
+        {
+            path.add(new Point(j,7));
+        }
+        Enemy bee = new Enemy(path,grid);
         addObject(bee, 0, 0);
     }
     
