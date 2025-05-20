@@ -9,7 +9,7 @@ public class Pathfinder
      * @param grid A 2D array containing a boolean to represent each point that you are or are not allowed to go.
      * @param start The point to start at.
      * @param end The point to end at.
-     * @return The path, in inverted order (first step at the end), so the next step can be accessed through the remove() method
+     * @return The path, in order with the first step first and the last step last in the List.
      */
     public static ArrayList<Point> pathfinder(boolean[][] grid, Point start, Point end)
     {    
@@ -17,7 +17,6 @@ public class Pathfinder
         int y = start.getY();
         
         count++;
-        //System.out.println(count);
         
         if (x < 0 ||
             y < 0 || 
@@ -35,8 +34,6 @@ public class Pathfinder
         {
             // found the end!
             path.add(0, start);
-            //System.out.println("\n\n\n\n\n\n\n\n\n\n\n");
-            System.out.println("Path found: " + path + " after " + count + " calls.");
             return path;
         }
         
@@ -56,6 +53,7 @@ public class Pathfinder
             path.add(0, start);
         }
         // newGrid[y][x] = true; // Should be unnecessary because the ArrayList is deleted anyways?
+        System.out.println("Path at " + count + " calls: " + path);
         return path;
     }
     /**
