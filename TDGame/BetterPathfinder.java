@@ -66,6 +66,44 @@ public class BetterPathfinder
     {    
         boolean pathFound = false;
         
+        ArrayList<Point> usedPoints = new ArrayList<Point>();
+        usedPoints.add(start);
+        
+        while(!pathFound)
+        {
+            ArrayList<Point> newOpen = new ArrayList<Point>();
+            for (int i = 0; i < usedPoints.size(); i++)
+            {
+                Point currentPoint = usedPoints.get(i);
+                for (Point neighbor : findNeighbors(grid, currentPoint))
+                {
+                    if (!usedPoints.contains(neighbor) && !newOpen.contains(neighbor))
+                    {
+                        newOpen.add(neighbor);
+                    }
+                }
+            }
+            
+            for (Point point : newOpen)
+            {
+                usedPoints.add(point);
+                if (end.equals(point))
+                {
+                    pathFound = true;
+                    break;
+                }
+            }
+            
+            if (!pathFound && newOpen.isEmpty())
+            {
+                return null;
+            }
+        }
+        
+        ArrayList<Point> path = new ArrayList<Point>();
+        Point point = usedPoints.get(usedPoints.size() - 1);
+        //while (poin
+
         return null;
     }
 }
