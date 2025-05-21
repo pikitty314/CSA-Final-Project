@@ -50,8 +50,10 @@ public class GameplayWorld extends BaseWorld
         }
         */ 
         path = AStarPathfinder.pathfinder(grid.getPathfinderGrid(), new Point(0,0), new Point(11,8));
-        Enemy bee = new Enemy(path,grid);
+        Enemy bee = new Enemy(path,grid, 100);
         addObject(bee, 0, 0);
+        
+        addObject(new Tower(new GreenfootImage("images/lighthouse.png"), grid.getPoint(5,5), 3 * super.getTileSideLength()), grid.getPoint(5,5).getPixelPoint().getX(), grid.getPoint(5,5).getPixelPoint().getY());
     }
     
     public void act()

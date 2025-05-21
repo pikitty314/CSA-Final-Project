@@ -15,12 +15,16 @@ public class Enemy extends Actor
     private Grid grid;
     private GridPoint currentPoint;
     
+    private int health;
+    
     private boolean pathComplete = false;
     
-    public Enemy(ArrayList<Point> path, Grid grid)
+    public Enemy(ArrayList<Point> path, Grid grid, int maxHealth)
     {
         this.path = new ArrayList<Point>(path);
         this.grid = grid;
+        
+        health = maxHealth;
 
         nextPathPoint();
         System.out.println(currentPoint.getTilePoint());
@@ -47,8 +51,8 @@ public class Enemy extends Actor
             return;
         }
         
-        if ((this.getX() == currentPoint.getPixelPoint().getX()
-            && this.getY() == currentPoint.getPixelPoint().getY()))
+        if (inRangeOfAnother(this.getX(), currentPoint.getPixelPoint().getX(), speed)
+            && inRangeOfAnother(this.getY(), currentPoint.getPixelPoint().getY(), speed))
         {
             if (path.isEmpty())
             {
@@ -68,5 +72,36 @@ public class Enemy extends Actor
     {        
         currentPoint = grid.getPoint(path.get(0).getX(),path.get(0).getY());
         path.remove(0);
+    }
+    
+    public int getRemainingPathLength()
+    {
+        return path.size();
+    }
+    
+    /**
+     * Returns true if a within range of b.
+     */
+    public boolean inRangeOfAnother(int a, int b, int range)
+    {
+        if (a - range <= b && b <= a + range)
+        {
+            return true;
+        }
+        return false;
+    }
+    
+    public int getHealth()
+    {
+        return health;
+    }
+    
+    public void doDamage(int amount)
+    {
+        health -= amount;
+        if (health <= 0)
+        {
+            getWorld().removeObject(this);
+        }
     }
 }

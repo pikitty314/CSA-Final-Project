@@ -17,7 +17,7 @@ public class GridPoint
     // What can be done at this point
     private boolean canPlaceTower;
     private boolean canBeInEnemyPath;
-    
+        
     public GridPoint(Tile tile, Point tilePoint, Point pixelPoint, boolean canPlaceTower, boolean canBeInEnemyPath)
     {
         this.tile = tile;
@@ -73,5 +73,17 @@ public class GridPoint
     public void setCanBeInEnemyPath(boolean canBeInEnemyPath)
     {
         this.canBeInEnemyPath = canBeInEnemyPath;
+    }
+    
+    public void placeTower(Tower tower)
+    {
+        this.tower = tower;
+        setCanBeInEnemyPath(false);
+    }
+    
+    public void removeTower()
+    {
+        this.tower = null;
+        setCanBeInEnemyPath(true);
     }
 }
