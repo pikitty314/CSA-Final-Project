@@ -59,6 +59,11 @@ public class GridPoint
         return pixelPoint;
     }
     
+    public Point getTilePoint()
+    {
+        return tilePoint;
+    }
+    
     // Setters
     public void setCanPlaceTower(boolean canPlaceTower)
     {

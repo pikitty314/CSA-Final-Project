@@ -55,7 +55,7 @@ public class Grid
                 
                 boolean isBlocked = blocked[y][x];
                 
-                grid[y][x] = new GridPoint(tile, y, x, pixelX, pixelY, !isBlocked, !isBlocked);
+                grid[y][x] = new GridPoint(tile, x, y, pixelX, pixelY, !isBlocked, !isBlocked);
                 
                 pixelX += tileSideLength;
             }

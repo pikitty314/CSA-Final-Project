@@ -1,3 +1,4 @@
+import java.util.Objects;
 /**
  * A point on the XY plane.
  * 
@@ -33,8 +34,15 @@ public class Point
         return "(" + x + ", " + y + ")";
     }
     
-    public boolean equals(Point other)
+    @Override
+    public int hashCode()
     {
+        return Objects.hash(x, y);
+    }
+    
+    public boolean equals(Object obj)
+    {
+        Point other = (Point) obj;
         if (this.getX() == other.getX() && this.getY() == other.getY())
         {
             return true;

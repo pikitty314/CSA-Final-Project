@@ -1,8 +1,32 @@
 import java.util.ArrayList;
 
-public class Pathfinder
+public class BruteForcePathfinder
 {
     static int count = 0;
+    
+    public static ArrayList<Point> pathfinder(boolean[][] grid, Point start, Point end)
+    {
+        int max = 0;
+        count = 0;
+        
+        max += Math.abs(start.getX() - end.getX());
+        max += Math.abs(start.getY() - end.getY());
+        
+        for (boolean[] row : grid)
+        {
+            for (boolean pt : row)
+            {
+                if (!pt)
+                {
+                    max += 2;
+                }
+            }
+        }
+        
+        return pathfinder(grid, start, end, 0, max);
+    }
+    
+    
     /**
      * A very simple and probably relatively inefficent pathfinder.
      * 
@@ -11,7 +35,7 @@ public class Pathfinder
      * @param end The point to end at.
      * @return The path, in order with the first step first and the last step last in the List.
      */
-    public static ArrayList<Point> pathfinder(boolean[][] grid, Point start, Point end)
+    public static ArrayList<Point> pathfinder(boolean[][] grid, Point start, Point end, int length, int maxLengthAllowed)
     {    
         int x = start.getX();
         int y = start.getY();
@@ -22,7 +46,8 @@ public class Pathfinder
             y < 0 || 
             x >= grid[0].length || 
             y >= grid.length || 
-            !grid[y][x])
+            !grid[y][x] ||
+            length > maxLengthAllowed)
         {
             // illegal location
             return new ArrayList<>();
@@ -41,10 +66,10 @@ public class Pathfinder
         newGrid[y][x] = false;
 
         // check all directions
-        ArrayList<Point> up = new ArrayList<Point>(pathfinder(newGrid, new Point(x, y + 1), end));
-        ArrayList<Point> down = new ArrayList<Point>(pathfinder(newGrid, new Point(x, y - 1), end));
-        ArrayList<Point> right = new ArrayList<Point>(pathfinder(newGrid, new Point(x + 1, y), end));
-        ArrayList<Point> left = new ArrayList<Point>(pathfinder(newGrid, new Point(x - 1, y), end));
+        ArrayList<Point> up = new ArrayList<Point>(pathfinder(newGrid, new Point(x, y + 1), end, length + 1, maxLengthAllowed));
+        ArrayList<Point> down = new ArrayList<Point>(pathfinder(newGrid, new Point(x, y - 1), end, length + 1, maxLengthAllowed));
+        ArrayList<Point> right = new ArrayList<Point>(pathfinder(newGrid, new Point(x + 1, y), end, length + 1, maxLengthAllowed));
+        ArrayList<Point> left = new ArrayList<Point>(pathfinder(newGrid, new Point(x - 1, y), end, length + 1, maxLengthAllowed));
         
         path = new ArrayList<Point>(getShortest(up, down, right, left));
         if (!path.isEmpty())

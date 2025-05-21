@@ -38,7 +38,8 @@ public class GameplayWorld extends BaseWorld
         }
         
         ArrayList<Point> path = new ArrayList<Point>();
-        // path = Pathfinder.pathfinder(grid.getPathfinderGrid(), new Point(0,0), new Point(0,3));
+        
+        /*
         for (int i = 0; i < 8; i++)
         {
             path.add(new Point(i,i));
@@ -47,6 +48,8 @@ public class GameplayWorld extends BaseWorld
         {
             path.add(new Point(j,7));
         }
+        */ 
+        path = AStarPathfinder.pathfinder(grid.getPathfinderGrid(), new Point(0,0), new Point(11,8));
         Enemy bee = new Enemy(path,grid);
         addObject(bee, 0, 0);
     }

@@ -23,6 +23,7 @@ public class Enemy extends Actor
         this.grid = grid;
 
         nextPathPoint();
+        System.out.println(currentPoint.getTilePoint());
     }
     
     /**
@@ -56,6 +57,7 @@ public class Enemy extends Actor
                 return;
             }
             nextPathPoint();
+            System.out.println(currentPoint.getTilePoint());
         }
         
         this.turnTowards(currentPoint.getPixelPoint().getX(), currentPoint.getPixelPoint().getY());
