@@ -10,6 +10,10 @@ import java.util.ArrayList;
 public class GameplayWorld extends BaseWorld
 {
     Grid grid;
+    InputMenu menu;
+    
+    int money = 100;
+    
     /**
      * Constructor for objects of class GameplayWorld.
      * 
@@ -39,6 +43,9 @@ public class GameplayWorld extends BaseWorld
         
         ArrayList<Point> path = new ArrayList<Point>();
         
+        menu = new InputMenu(this, () -> money);
+        addObject(menu, (int)(super.getWindowWidth() * 0.9), super.getWindowHeight() / 2);
+        
         /*
         for (int i = 0; i < 8; i++)
         {
@@ -50,8 +57,11 @@ public class GameplayWorld extends BaseWorld
         }
         */ 
         path = AStarPathfinder.pathfinder(grid.getPathfinderGrid(), new Point(0,0), new Point(11,8));
-        Enemy bee = new Enemy(path,grid, 100);
-        addObject(bee, 0, 0);
+    
+        addObject(new Enemy(path,grid, 100), 10, 10);
+        addObject(new Enemy(path,grid, 100), 20, 20);
+        addObject(new Enemy(path,grid, 100), 5, 5);
+        addObject(new Enemy(path,grid, 100), 0, 0);
         
         addObject(new Tower(new GreenfootImage("images/lighthouse.png"), grid.getPoint(5,5), 3 * super.getTileSideLength()), grid.getPoint(5,5).getPixelPoint().getX(), grid.getPoint(5,5).getPixelPoint().getY());
     }

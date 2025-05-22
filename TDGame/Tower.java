@@ -56,12 +56,13 @@ public class Tower extends Actor
         
         if (target == null)
         {
+            setRotation(0);
             return;
         }
         else
         {
+            turnTowards(target.getX(), target.getY());
             target.doDamage(1);
-        }
-        
+        }        
     }
 }
