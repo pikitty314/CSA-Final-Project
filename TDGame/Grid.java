@@ -38,7 +38,7 @@ public class Grid
      * 
      * @return An array of tiles to be added to the world
      */
-    public Tile[][]  generateGrid(GreenfootImage[][] tileImages, boolean[][] blocked, int tileSideLength)
+    public Tile[][]  generateGrid(GameplayWorld world, GreenfootImage[][] tileImages, boolean[][] blocked, int tileSideLength)
     {
         int pixelX = tileSideLength;
         int pixelY = tileSideLength;
@@ -50,7 +50,7 @@ public class Grid
             {
                 tileImages[y][x].scale(tileSideLength, tileSideLength);
                 
-                Tile tile = new Tile(tileImages[y][x], pixelX, pixelY);
+                Tile tile = new Tile(world, tileImages[y][x], pixelX, pixelY, x, y);
                 tileGrid[y][x] = tile;
                 
                 boolean isBlocked = blocked[y][x];

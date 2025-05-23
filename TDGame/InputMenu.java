@@ -9,11 +9,16 @@ import java.util.function.IntSupplier;
  */
 public class InputMenu extends Actor
 {
-    public InputMenu(GameplayWorld world, IntSupplier money)
+    GridPoint selected = null;
+    
+    public InputMenu(GameplayWorld world)
     {
         this.getImage().scale(world.getWindowWidth()/5, world.getWindowHeight());
-        getWorld().addObject(new Counter("$"), _int_, _int_)
+        world.addObject(new Counter("$", () -> world.getMoney(), world.getWindowWidth()/24), 9*(world.getWindowWidth()/10), world.getWindowHeight()/10);
+        world.addObject(new Counter("Lives: ", () -> world.getLivesRemaining(), world.getWindowWidth()/40), 9*(world.getWindowWidth()/10), 4*world.getWindowHeight()/25);
+        world.addObject(new Counter("Wave: ", () -> world.getWave(), world.getWindowWidth()/40), 9*(world.getWindowWidth()/10), world.getWindowHeight()/5);
     }
+    
     
     /**
      * Act - do whatever the InputMenu wants to do. This method is called whenever
@@ -22,5 +27,11 @@ public class InputMenu extends Actor
     public void act()
     {
         // Add your action code here.
+    }
+    
+    public void setSelectedGridPoint(GridPoint gridPoint)
+    {
+        selected = gridPoint;
+        System.out.println(gridPoint.getPixelPoint().getX() + ", " + gridPoint.getPixelPoint().getY()); 
     }
 }

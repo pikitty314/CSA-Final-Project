@@ -9,6 +9,8 @@ import java.util.ArrayList;
  */
 public class Enemy extends Actor
 {
+    private GameplayWorld world;
+    
     private boolean play = true;
     
     private ArrayList<Point> path;
@@ -19,8 +21,9 @@ public class Enemy extends Actor
     
     private boolean pathComplete = false;
     
-    public Enemy(ArrayList<Point> path, Grid grid, int maxHealth)
+    public Enemy(GameplayWorld world, ArrayList<Point> path, Grid grid, int maxHealth)
     {
+        this.world = world;
         this.path = new ArrayList<Point>(path);
         this.grid = grid;
         
@@ -102,6 +105,7 @@ public class Enemy extends Actor
         if (health <= 0)
         {
             getWorld().removeObject(this);
+            world.addMoney(50);
         }
     }
 }

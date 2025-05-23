@@ -8,23 +8,29 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Tile extends Actor
 {
+    private GameplayWorld world;
     private Point pixelPose;
+    private Point gridPoint;
     
-    public Tile(GreenfootImage image, Point pixelPosition)
+    public Tile(GameplayWorld world, GreenfootImage image, Point pixelPosition, Point gridPoint)
     {
         super();
+        this.world = world;
         this.setImage(image);
         this.pixelPose = pixelPosition;
+        this.gridPoint = gridPoint;
     }
     
-    public Tile(GreenfootImage image, int pixelPoseX, int pixelPoseY)
+    public Tile(GameplayWorld world, GreenfootImage image, int pixelPoseX, int pixelPoseY, int gridX, int gridY)
     {
         super();
+        this.world = world;
         this.setImage(image);
         this.pixelPose = new Point(pixelPoseX, pixelPoseY);
+        this.gridPoint = new Point(gridX, gridY);
     }
     
-    public Point getPixelPose()
+    public Point getPixelPoint()
     {
         return pixelPose;
     }
@@ -35,6 +41,14 @@ public class Tile extends Actor
      */
     public void act()
     {
-        // Add your action code here.
+        if(Greenfoot.mouseClicked(this))
+        {
+            uponPress();
+        }
+    }
+    
+    public void uponPress()
+    {
+        
     }
 }

@@ -1,4 +1,5 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import java.util.function.IntSupplier;
 
 /**
  * Write a description of class Counter here.
@@ -8,9 +9,16 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Counter extends Actor
 {
-    public Counter(String text, int val, int size)
+    String text;
+    IntSupplier val;
+    int size;
+    
+    public Counter(String text, IntSupplier val, int size)
     {
-        this.setImage(new GreenfootImage(text + " " + val, size, Color.BLACK, Color.WHITE));
+        super();
+        this.text = text;
+        this.val = val;
+        this.size = size;
     }
     
     /**
@@ -19,6 +27,6 @@ public class Counter extends Actor
      */
     public void act()
     {
-        // Add your action code here.
+        this.setImage(new GreenfootImage(text + "" + val.getAsInt(), size, Color.BLACK, Color.WHITE));
     }
 }
