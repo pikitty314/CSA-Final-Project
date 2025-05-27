@@ -42,6 +42,12 @@ public class Enemy extends Actor
         if (play)
         {
             followPath(1);
+            
+            if(this.getX() > (int)(world.getWindowWidth() * 0.9))
+            {
+                world.loseLife();
+                world.removeObject(this);
+            }
         }
     }
     
@@ -60,13 +66,30 @@ public class Enemy extends Actor
             if (path.isEmpty())
             {
                 pathComplete = true;
-                System.out.println("Reached end of path");
+                // System.out.println("Reached end of path");
                 return;
             }
             nextPathPoint();
-            System.out.println(currentPoint.getTilePoint());
+            // System.out.println(currentPoint.getTilePoint());
         }
         
+        /* This doesn't work yet
+        if (currentPoint.getPixelPoint().getX() > this.getX())
+        {
+            this.setRotation(0);
+        } else if (currentPoint.getPixelPoint().getY() > this.getY())
+        {
+            this.setRotation(270);
+        } else if (currentPoint.getPixelPoint().getY() < this.getY())
+        {
+            this.setRotation(90);
+        } else if (currentPoint.getPixelPoint().getX() < this.getX())
+        {
+            this.setRotation(180);
+        } else
+        {
+            this.turnTowards(currentPoint.getPixelPoint().getX(), currentPoint.getPixelPoint().getY());
+        } */
         this.turnTowards(currentPoint.getPixelPoint().getX(), currentPoint.getPixelPoint().getY());
         this.move(speed);
     }

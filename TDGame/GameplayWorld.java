@@ -23,7 +23,7 @@ public class GameplayWorld extends BaseWorld
     public GameplayWorld()
     {
         super(12, 9);
-        this.setPaintOrder(Enemy.class, Tower.class, Button.class, Counter.class);
+        this.setPaintOrder(Button.class, Counter.class, InputMenu.class, Enemy.class, Tower.class, Button.class);
         grid = new Grid(super.getGridXSize(), super.getGridYSize());
         GreenfootImage[][] images = new GreenfootImage[super.getGridYSize()][super.getGridXSize()];
         boolean[][] block = new boolean[super.getGridYSize()][super.getGridXSize()];
@@ -65,8 +65,18 @@ public class GameplayWorld extends BaseWorld
         addObject(new Enemy(this, path,grid, 100), 20, 20);
         addObject(new Enemy(this, path,grid, 100), 5, 5);
         addObject(new Enemy(this, path,grid, 100), 0, 0);
+        addObject(new Enemy(this, path,grid, 100), 0, 0);
+        addObject(new Enemy(this, path,grid, 100), 0, 0);
+        addObject(new Enemy(this, path,grid, 100), 0, 0);
+        addObject(new Enemy(this, path,grid, 100), 0, 0);
+        addObject(new Enemy(this, path,grid, 100), 0, 0);
+        addObject(new Enemy(this, path,grid, 100), 0, 0);
+        addObject(new Enemy(this, path,grid, 100), 0, 0);
+        addObject(new Enemy(this, path,grid, 100), 0, 0);
+        addObject(new Enemy(this, path,grid, 100), 0, 0);
         
-        addObject(new Tower(new GreenfootImage("images/lighthouse.png"), grid.getPoint(5,5), 3 * super.getTileSideLength()), grid.getPoint(5,5).getPixelPoint().getX(), grid.getPoint(5,5).getPixelPoint().getY());
+        
+        addObject(new Tower(this, new GreenfootImage("images/lighthouse.png"), grid.getPoint(5,5), 3 * super.getTileSideLength()), grid.getPoint(5,5).getPixelPoint().getX(), grid.getPoint(5,5).getPixelPoint().getY());
     }
     
     public void act()
@@ -74,6 +84,10 @@ public class GameplayWorld extends BaseWorld
         
     }
     
+    public Grid getGrid()
+    {
+        return grid;
+    }
     
     public void addMoney(int amount)
     {

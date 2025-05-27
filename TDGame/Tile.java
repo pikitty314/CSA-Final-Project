@@ -49,6 +49,6 @@ public class Tile extends Actor
     
     public void uponPress()
     {
-        
+        world.setSelectedGridPoint(world.getGrid().getPoint(gridPoint));
     }
 }

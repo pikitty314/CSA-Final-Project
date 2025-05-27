@@ -9,20 +9,25 @@ import java.util.List;
  */
 public class Tower extends Actor
 {
+    private GameplayWorld world;
+    
     private boolean play = true;
     
     private GridPoint position;
     
     private int towerRange;
     
-    public Tower(GreenfootImage image, GridPoint position, int towerRange)
+    public Tower(GameplayWorld world, GreenfootImage image, GridPoint position, int towerRange)
     {
         super();
+        
+        this.world = world;
         
         this.position = position;
         this.towerRange = towerRange;
         
         this.setImage(image);
+        this.getImage().scale(world.getTileSideLength() - 4, world.getTileSideLength() - 4);
         this.setLocation(position.getPixelPoint().getX(), position.getPixelPoint().getY());
         
         position.placeTower(this);
@@ -37,6 +42,10 @@ public class Tower extends Actor
         if (play)
         {
             runAttackSystem();
+        }
+        if(Greenfoot.mouseClicked(this))
+        {
+            uponPress();
         }
     }
     
@@ -64,5 +73,10 @@ public class Tower extends Actor
             turnTowards(target.getX(), target.getY());
             target.doDamage(1);
         }        
+    }
+    
+    public void uponPress()
+    {
+        world.setSelectedGridPoint(position);
     }
 }
