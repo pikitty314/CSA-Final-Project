@@ -12,6 +12,8 @@ public class GameplayWorld extends BaseWorld
     Grid grid;
     InputMenu menu;
     
+    GridPoint selected = null;
+    
     int money = 100;
     int lives = 20;
     int wave = 1;
@@ -129,6 +131,22 @@ public class GameplayWorld extends BaseWorld
     
     public void setSelectedGridPoint(GridPoint gridPoint)
     {
-        menu.setSelectedGridPoint(gridPoint);
+        if (selected != gridPoint)
+        {
+            selected = gridPoint;
+            menu.showAddTowerMenu();
+            System.out.println(gridPoint.getTilePoint());    
+        }
+        else
+        {
+            selected = null;
+            menu.hideAddTowerMenu();
+            System.out.println("Deselected: " + gridPoint.getTilePoint());
+        }
+    }
+    
+    public GridPoint getSelectedGridPoint()
+    {
+        return selected;
     }
 }

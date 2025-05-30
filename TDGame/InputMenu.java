@@ -16,17 +16,23 @@ public class InputMenu extends Actor
     
     GridPoint selected = null;
     
+    ArrayList<AddTowerButton> towerButtons = new ArrayList<AddTowerButton>();
+    
     public InputMenu(GameplayWorld world)
     {
         this.world = world;
         
         this.getImage().scale(world.getWindowWidth()/5, world.getWindowHeight());
         
-        buttonSideLength = world.getWindowWidth()/20;
+        buttonSideLength = (int) (world.getWindowWidth()/18);
         
         world.addObject(new Counter("$", () -> world.getMoney(), world.getWindowWidth()/24), 9*(world.getWindowWidth()/10), world.getWindowHeight()/10);
         world.addObject(new Counter("Lives: ", () -> world.getLivesRemaining(), world.getWindowWidth()/40), 9*(world.getWindowWidth()/10), 4*world.getWindowHeight()/25);
         world.addObject(new Counter("Wave: ", () -> world.getWave(), world.getWindowWidth()/40), 9*(world.getWindowWidth()/10), world.getWindowHeight()/5);
+        
+        towerButtons.add(new AddTowerButton(world, buttonSideLength, new GreenfootImage("images/lighthouse.png")));
+        towerButtons.add(new AddTowerButton(world, buttonSideLength, new GreenfootImage("images/button-green.png")));
+        towerButtons.add(new AddTowerButton(world, buttonSideLength, new GreenfootImage("images/VeryBasicTitle.png")));
     }
     
     
@@ -39,25 +45,35 @@ public class InputMenu extends Actor
         // Add your action code here.
     }
     
-    public void setSelectedGridPoint(GridPoint gridPoint)
+    public void showAddTowerMenu()
     {
-        if (selected != gridPoint)
+        int xPos = (int)(buttonSideLength * 15.59);
+        int yPos = (int) (buttonSideLength * 3.5);
+        
+        boolean rowComplete = false;
+        for (AddTowerButton button : towerButtons)
         {
-            selected = gridPoint;
-            showAddTowerMenu();
-            System.out.println(gridPoint.getTilePoint());    
-        }
-        else
-        {
-            selected = gridPoint;
-            System.out.println("Deselected: " + gridPoint.getTilePoint());
+            world.addObject(button, xPos, yPos);
+            
+            if(!rowComplete)
+            {
+                xPos += (int)(buttonSideLength * 1.3);
+                rowComplete = true;
+            }
+            else
+            {
+                yPos += (int)(buttonSideLength * 1.3);
+                xPos = (int)(buttonSideLength * 15.59);
+                rowComplete = false;
+            }
         }
     }
     
-    public void showAddTowerMenu()
+    public void hideAddTowerMenu()
     {
-        int xPos = buttonSideLength * 17;
-        int yPos = buttonSideLength * 4;
-        world.addObject(new AddTowerButton(world, buttonSideLength, new GreenfootImage("images/lighthouse.png")), xPos, yPos);
+        for (AddTowerButton button : towerButtons)
+        {
+            world.removeObject(button);
+        }
     }
 }
