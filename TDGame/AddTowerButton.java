@@ -8,9 +8,14 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class AddTowerButton extends Button
 {
+    GameplayWorld world;
+    
     public AddTowerButton(GameplayWorld world, int size, GreenfootImage towerImage)
     {
         super();
+        
+        this.world = world;
+        
         this.setImage(towerImage);
         this.getImage().scale(size, size);
     }
@@ -24,6 +29,6 @@ public class AddTowerButton extends Button
     @Override
     public void uponPress()
     {
-        
+        world.addTower();
     }
 }

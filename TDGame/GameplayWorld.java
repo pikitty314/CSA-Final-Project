@@ -1,5 +1,6 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Write a description of class GameplayWorld here.
@@ -13,6 +14,8 @@ public class GameplayWorld extends BaseWorld
     InputMenu menu;
     
     GridPoint selected = null;
+    
+    ArrayList<Point> defaultPath;
     
     int money = 100;
     int lives = 20;
@@ -46,7 +49,7 @@ public class GameplayWorld extends BaseWorld
             }
         }
         
-        ArrayList<Point> path = new ArrayList<Point>();
+        defaultPath = new ArrayList<Point>();
         
         menu = new InputMenu(this);
         addObject(menu, (int)(super.getWindowWidth() * 0.9), super.getWindowHeight() / 2);
@@ -61,21 +64,21 @@ public class GameplayWorld extends BaseWorld
             path.add(new Point(j,7));
         }
         */ 
-        path = AStarPathfinder.pathfinder(grid.getPathfinderGrid(), new Point(0,0), new Point(11,8));
+        defaultPath = AStarPathfinder.pathfinder(grid.getPathfinderGrid(), new Point(0,0), new Point(11,8));
     
-        addObject(new Enemy(this, path,grid, 100), 10, 10);
-        addObject(new Enemy(this, path,grid, 100), 20, 20);
-        addObject(new Enemy(this, path,grid, 100), 5, 5);
-        addObject(new Enemy(this, path,grid, 100), 0, 0);
-        addObject(new Enemy(this, path,grid, 100), 0, 0);
-        addObject(new Enemy(this, path,grid, 100), 0, 0);
-        addObject(new Enemy(this, path,grid, 100), 0, 0);
-        addObject(new Enemy(this, path,grid, 100), 0, 0);
-        addObject(new Enemy(this, path,grid, 100), 0, 0);
-        addObject(new Enemy(this, path,grid, 100), 0, 0);
-        addObject(new Enemy(this, path,grid, 100), 0, 0);
-        addObject(new Enemy(this, path,grid, 100), 0, 0);
-        addObject(new Enemy(this, path,grid, 100), 0, 0);
+        addObject(new Enemy(this, defaultPath,grid, 100), 10, 10);
+        addObject(new Enemy(this, defaultPath,grid, 100), 20, 20);
+        addObject(new Enemy(this, defaultPath,grid, 100), 5, 5);
+        addObject(new Enemy(this, defaultPath,grid, 100), 0, 0);
+        addObject(new Enemy(this, defaultPath,grid, 100), 0, 0);
+        addObject(new Enemy(this, defaultPath,grid, 100), 0, 0);
+        addObject(new Enemy(this, defaultPath,grid, 100), 0, 0);
+        addObject(new Enemy(this, defaultPath,grid, 100), 0, 0);
+        addObject(new Enemy(this, defaultPath,grid, 100), 0, 0);
+        addObject(new Enemy(this, defaultPath,grid, 100), 0, 0);
+        addObject(new Enemy(this, defaultPath,grid, 100), 0, 0);
+        addObject(new Enemy(this, defaultPath,grid, 100), 0, 0);
+        addObject(new Enemy(this, defaultPath,grid, 100), 0, 0);
         
         
         addObject(new Tower(this, new GreenfootImage("images/lighthouse.png"), grid.getPoint(5,5), 3 * super.getTileSideLength()), grid.getPoint(5,5).getPixelPoint().getX(), grid.getPoint(5,5).getPixelPoint().getY());
@@ -148,5 +151,32 @@ public class GameplayWorld extends BaseWorld
     public GridPoint getSelectedGridPoint()
     {
         return selected;
+    }
+    
+    public void addTower()
+    {
+        // check that the enemies still have a path to the end
+        boolean[][] pfGrid = grid.getPathfinderGrid();
+        pfGrid[selected.getTilePoint().getY()][selected.getTilePoint().getX()] = false;
+        ArrayList<Point> newPath = AStarPathfinder.pathfinder(grid.getPathfinderGrid(), new Point(0,0), new Point(11,8));
+        if(newPath.isEmpty())
+        {
+            System.out.println("ERROR! Cannot block enemies from end!");
+            return;
+        }
+        
+        Tower toAdd = new Tower(this, new GreenfootImage("images/lighthouse.png"), selected, 3 * super.getTileSideLength());
+        addObject(toAdd, selected.getPixelPoint().getX(), selected.getPixelPoint().getY());
+        setSelectedGridPoint(selected); // Deselect the gridpoint
+        
+        // Recalculate the paths
+        defaultPath = newPath;
+        System.out.println(defaultPath);
+        List<Enemy> enemies = new ArrayList<Enemy>();
+        enemies = getObjects(Enemy.class);
+        for (Enemy x : enemies)
+        {
+            x.recalculatePath();
+        }
     }
 }

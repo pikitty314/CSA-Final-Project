@@ -30,7 +30,7 @@ public class Enemy extends Actor
         health = maxHealth;
 
         nextPathPoint();
-        System.out.println(currentPoint.getTilePoint());
+        // System.out.println(currentPoint.getTilePoint());
     }
     
     /**
@@ -98,6 +98,11 @@ public class Enemy extends Actor
     {        
         currentPoint = grid.getPoint(path.get(0).getX(),path.get(0).getY());
         path.remove(0);
+    }
+    
+    public void recalculatePath()
+    {
+        path = AStarPathfinder.pathfinder(grid.getPathfinderGrid(), currentPoint.getTilePoint(), new Point(11,8));
     }
     
     public int getRemainingPathLength()
