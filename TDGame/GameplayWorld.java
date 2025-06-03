@@ -17,9 +17,14 @@ public class GameplayWorld extends BaseWorld
     
     ArrayList<Point> defaultPath;
     
-    int money = 100;
+    int money = 250;
     int lives = 20;
-    int wave = 1;
+    int wave = 0;
+    
+    // wave related variables
+    int enemiesRemainingInWave = 0;
+    int enemyWait = 0;
+    EnemyTypes currentEnemyType = EnemyTypes.BEE;
     
     /**
      * Constructor for objects of class GameplayWorld.
@@ -65,28 +70,34 @@ public class GameplayWorld extends BaseWorld
         }
         */ 
         defaultPath = AStarPathfinder.pathfinder(grid.getPathfinderGrid(), new Point(0,0), new Point(11,8));
-    
-        addObject(new Enemy(this, defaultPath,grid, 100), 10, 10);
-        addObject(new Enemy(this, defaultPath,grid, 100), 20, 20);
-        addObject(new Enemy(this, defaultPath,grid, 100), 5, 5);
-        addObject(new Enemy(this, defaultPath,grid, 100), 0, 0);
-        addObject(new Enemy(this, defaultPath,grid, 100), 0, 0);
-        addObject(new Enemy(this, defaultPath,grid, 100), 0, 0);
-        addObject(new Enemy(this, defaultPath,grid, 100), 0, 0);
-        addObject(new Enemy(this, defaultPath,grid, 100), 0, 0);
-        addObject(new Enemy(this, defaultPath,grid, 100), 0, 0);
-        addObject(new Enemy(this, defaultPath,grid, 100), 0, 0);
-        addObject(new Enemy(this, defaultPath,grid, 100), 0, 0);
-        addObject(new Enemy(this, defaultPath,grid, 100), 0, 0);
-        addObject(new Enemy(this, defaultPath,grid, 100), 0, 0);
-        
-        
-        addObject(new Tower(this, new GreenfootImage("images/lighthouse.png"), grid.getPoint(5,5), 3 * super.getTileSideLength()), grid.getPoint(5,5).getPixelPoint().getX(), grid.getPoint(5,5).getPixelPoint().getY());
+        advanceWave();
     }
     
     public void act()
     {
+        // Create enemies
+        if (enemyWait <= 0)
+        {
+            addObject(
+                new Enemy(
+                    this,
+                    grid,
+                    defaultPath,
+                    currentEnemyType.getImage(),
+                    currentEnemyType.getBaseHealth() * wave,
+                    currentEnemyType.getReward()),
+                0, 0);
+            enemyWait = 100;
+        }
+        else
+        {
+            enemyWait--;
+        }
         
+        if (enemiesRemainingInWave <= 0)
+        {
+            advanceWave();
+        }
     }
     
     public Grid getGrid()
@@ -123,6 +134,11 @@ public class GameplayWorld extends BaseWorld
     
     public void advanceWave()
     {
+        enemiesRemainingInWave = (int)(Math.random() * 30) + 1;
+        enemyWait = 500;
+        
+        addMoney(150);
+        
         wave++;
     }
     
@@ -131,6 +147,11 @@ public class GameplayWorld extends BaseWorld
         return wave;
     }
     
+    public void killEnemy(int award)
+    {
+        addMoney(award);
+        enemiesRemainingInWave--;
+    }
     
     public void setSelectedGridPoint(GridPoint gridPoint)
     {
@@ -155,17 +176,25 @@ public class GameplayWorld extends BaseWorld
     
     public void addTower()
     {
+        // check that there is enough money; has filler values
+        if (money < 100)
+        {
+            return;
+        }
+        
         // check that the enemies still have a path to the end
         boolean[][] pfGrid = grid.getPathfinderGrid();
         pfGrid[selected.getTilePoint().getY()][selected.getTilePoint().getX()] = false;
-        ArrayList<Point> newPath = AStarPathfinder.pathfinder(grid.getPathfinderGrid(), new Point(0,0), new Point(11,8));
-        if(newPath.isEmpty())
+        ArrayList<Point> newPath = AStarPathfinder.pathfinder(pfGrid, new Point(0,0), new Point(11,8));
+        if(newPath.isEmpty() || selected.getTilePoint().equals(new Point(0,0)))
         {
             System.out.println("ERROR! Cannot block enemies from end!");
             return;
         }
         
-        Tower toAdd = new Tower(this, new GreenfootImage("images/lighthouse.png"), selected, 3 * super.getTileSideLength());
+        money -= 100;
+        
+        Tower toAdd = new Tower(this, new GreenfootImage("images/lighthouse.png"), selected, 3);
         addObject(toAdd, selected.getPixelPoint().getX(), selected.getPixelPoint().getY());
         setSelectedGridPoint(selected); // Deselect the gridpoint
         

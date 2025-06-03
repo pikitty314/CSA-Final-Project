@@ -18,8 +18,23 @@ public class Enemy extends Actor
     private GridPoint currentPoint;
     
     private int health;
+    private int reward;
     
     private boolean pathComplete = false;
+    
+    public Enemy(GameplayWorld world, Grid grid, ArrayList<Point> path, GreenfootImage image, int maxHealth, int reward)
+    {
+        this.world = world;
+        this.grid = grid;
+        this.path = new ArrayList<Point>(path);
+        
+        this.health = maxHealth;
+        this.reward = reward;
+        
+        this.setImage(image);
+        
+        nextPathPoint();
+    }
     
     public Enemy(GameplayWorld world, ArrayList<Point> path, Grid grid, int maxHealth)
     {
@@ -28,6 +43,7 @@ public class Enemy extends Actor
         this.grid = grid;
         
         health = maxHealth;
+        reward = 25;
 
         nextPathPoint();
         // System.out.println(currentPoint.getTilePoint());
@@ -133,7 +149,7 @@ public class Enemy extends Actor
         if (health <= 0)
         {
             getWorld().removeObject(this);
-            world.addMoney(50);
+            world.killEnemy(reward); // 25 is just a filler value
         }
     }
 }

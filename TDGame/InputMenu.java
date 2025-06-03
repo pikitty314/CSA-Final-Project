@@ -30,7 +30,7 @@ public class InputMenu extends Actor
         world.addObject(new Counter("Lives: ", () -> world.getLivesRemaining(), world.getWindowWidth()/40), 9*(world.getWindowWidth()/10), 4*world.getWindowHeight()/25);
         world.addObject(new Counter("Wave: ", () -> world.getWave(), world.getWindowWidth()/40), 9*(world.getWindowWidth()/10), world.getWindowHeight()/5);
         
-        towerButtons.add(new AddTowerButton(world, buttonSideLength, new GreenfootImage("images/lighthouse.png")));
+        towerButtons.add(new AddTowerButton(world, buttonSideLength, TowerTypes.LIGHTHOUSE));
         towerButtons.add(new AddTowerButton(world, buttonSideLength, new GreenfootImage("images/button-green.png")));
         towerButtons.add(new AddTowerButton(world, buttonSideLength, new GreenfootImage("images/VeryBasicTitle.png")));
     }

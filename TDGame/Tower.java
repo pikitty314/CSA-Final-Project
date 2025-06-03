@@ -15,16 +15,37 @@ public class Tower extends Actor
     
     private GridPoint position;
     
-    private int towerRange;
+    private int range;
+    private int damage;
     
-    public Tower(GameplayWorld world, GreenfootImage image, GridPoint position, int towerRange)
+    public Tower(GameplayWorld world, GreenfootImage image, GridPoint position, int rangeInTiles, int damage)
     {
         super();
         
         this.world = world;
         
         this.position = position;
-        this.towerRange = towerRange;
+        
+        this.range = rangeInTiles * world.getTileSideLength();
+        this.damage = damage;
+        
+        this.setImage(image);
+        this.getImage().scale(world.getTileSideLength() - 4, world.getTileSideLength() - 4);
+        this.setLocation(position.getPixelPoint().getX(), position.getPixelPoint().getY());
+        
+        position.placeTower(this);
+    }
+    
+    public Tower(GameplayWorld world, GreenfootImage image, GridPoint position, int rangeInTiles)
+    {
+        super();
+        
+        this.world = world;
+        
+        this.position = position;
+        
+        this.range = rangeInTiles * world.getTileSideLength();
+        damage = 1;
         
         this.setImage(image);
         this.getImage().scale(world.getTileSideLength() - 4, world.getTileSideLength() - 4);
@@ -51,7 +72,7 @@ public class Tower extends Actor
     
     public void runAttackSystem()
     {
-        List<Enemy> enemies = this.getObjectsInRange(towerRange, Enemy.class);
+        List<Enemy> enemies = this.getObjectsInRange(range, Enemy.class);
         Enemy target = null;
         
         // Find the enemy closest to the end
@@ -71,7 +92,7 @@ public class Tower extends Actor
         else
         {
             turnTowards(target.getX(), target.getY());
-            target.doDamage(1);
+            target.doDamage(damage);
         }        
     }
     
