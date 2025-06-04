@@ -16,7 +16,8 @@ public class InputMenu extends Actor
     
     GridPoint selected = null;
     
-    ArrayList<AddTowerButton> towerButtons = new ArrayList<AddTowerButton>();
+    ArrayList<AddTowerButton> addTowerButtons = new ArrayList<AddTowerButton>();
+    ArrayList<Button> upgradeTowerButtons = new ArrayList<Button>();
     
     public InputMenu(GameplayWorld world)
     {
@@ -30,9 +31,9 @@ public class InputMenu extends Actor
         world.addObject(new Counter("Lives: ", () -> world.getLivesRemaining(), world.getWindowWidth()/40), 9*(world.getWindowWidth()/10), 4*world.getWindowHeight()/25);
         world.addObject(new Counter("Wave: ", () -> world.getWave(), world.getWindowWidth()/40), 9*(world.getWindowWidth()/10), world.getWindowHeight()/5);
         
-        towerButtons.add(new AddTowerButton(world, buttonSideLength, TowerTypes.LIGHTHOUSE));
-        towerButtons.add(new AddTowerButton(world, buttonSideLength, new GreenfootImage("images/button-green.png")));
-        towerButtons.add(new AddTowerButton(world, buttonSideLength, new GreenfootImage("images/VeryBasicTitle.png")));
+        addTowerButtons.add(new AddTowerButton(world, buttonSideLength, TowerTypes.LIGHTHOUSE));
+        addTowerButtons.add(new AddTowerButton(world, buttonSideLength, new GreenfootImage("images/button-green.png")));
+        addTowerButtons.add(new AddTowerButton(world, buttonSideLength, new GreenfootImage("images/VeryBasicTitle.png")));
     }
     
     
@@ -47,11 +48,13 @@ public class InputMenu extends Actor
     
     public void showAddTowerMenu()
     {
+        hideTowerMenu();
+        
         int xPos = (int)(buttonSideLength * 15.59);
         int yPos = (int) (buttonSideLength * 3.5);
         
         boolean rowComplete = false;
-        for (AddTowerButton button : towerButtons)
+        for (AddTowerButton button : addTowerButtons)
         {
             world.addObject(button, xPos, yPos);
             
@@ -69,11 +72,46 @@ public class InputMenu extends Actor
         }
     }
     
-    public void hideAddTowerMenu()
+    public void showUpgradeTowerMenu()
     {
-        for (AddTowerButton button : towerButtons)
+        hideTowerMenu();
+        
+        int xPos = (int)(buttonSideLength * 15.59);
+        int yPos = (int) (buttonSideLength * 3.5);
+        
+        upgradeTowerButtons.add(new UpgradeTowerButton(world, buttonSideLength, world.getSelectedGridPoint().getTower()));
+        upgradeTowerButtons.add(new SellTowerButton(world, buttonSideLength, world.getSelectedGridPoint().getTower()));
+        
+        boolean rowComplete = false;
+        
+        for (Button button : upgradeTowerButtons)
+        {
+            world.addObject(button, xPos, yPos);
+            
+            if(!rowComplete)
+            {
+                xPos += (int)(buttonSideLength * 1.3);
+                rowComplete = true;
+            }
+            else
+            {
+                yPos += (int)(buttonSideLength * 1.3);
+                xPos = (int)(buttonSideLength * 15.59);
+                rowComplete = false;
+            }
+        }
+    }
+    
+    public void hideTowerMenu()
+    {
+        for (AddTowerButton button : addTowerButtons)
         {
             world.removeObject(button);
+        }
+        
+        for (int i = 0; i < upgradeTowerButtons.size();)
+        {
+            world.removeObject(upgradeTowerButtons.remove(i));
         }
     }
 }

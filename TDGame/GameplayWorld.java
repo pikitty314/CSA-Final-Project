@@ -105,6 +105,11 @@ public class GameplayWorld extends BaseWorld
         return grid;
     }
     
+    public InputMenu getMenu()
+    {
+        return menu;
+    }
+    
     public void addMoney(int amount)
     {
         money += amount;
@@ -158,14 +163,21 @@ public class GameplayWorld extends BaseWorld
         if (selected != gridPoint)
         {
             selected = gridPoint;
-            menu.showAddTowerMenu();
-            System.out.println(gridPoint.getTilePoint());    
+            if (selected.getTower() == null)
+            {
+                menu.showAddTowerMenu();
+            } 
+            else
+            {
+                menu.showUpgradeTowerMenu();
+            }
+            // System.out.println(gridPoint.getTilePoint());    
         }
         else
         {
             selected = null;
-            menu.hideAddTowerMenu();
-            System.out.println("Deselected: " + gridPoint.getTilePoint());
+            menu.hideTowerMenu();
+            // System.out.println("Deselected: " + gridPoint.getTilePoint());
         }
     }
     

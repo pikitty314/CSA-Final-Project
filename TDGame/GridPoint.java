@@ -54,6 +54,11 @@ public class GridPoint
         return canBeInEnemyPath;
     }
     
+    public Tower getTower()
+    {
+        return tower;
+    }
+    
     public Point getPixelPoint()
     {
         return pixelPoint;
