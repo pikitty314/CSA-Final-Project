@@ -22,11 +22,12 @@ public class Enemy extends Actor
     
     private boolean pathComplete = false;
     
-    public Enemy(GameplayWorld world, Grid grid, ArrayList<Point> path, GreenfootImage image, int maxHealth, int reward)
+    public Enemy(GameplayWorld world, Grid grid, GreenfootImage image, int maxHealth, int reward)
     {
         this.world = world;
         this.grid = grid;
-        this.path = new ArrayList<Point>(path);
+        
+        this.path = AStarPathfinder.pathfinder(grid.getPathfinderGrid(), new Point(0,0), new Point(11,8));
         
         this.health = maxHealth;
         this.reward = reward;
@@ -36,16 +37,18 @@ public class Enemy extends Actor
         nextPathPoint();
     }
     
-    public Enemy(GameplayWorld world, ArrayList<Point> path, Grid grid, int maxHealth)
+    public Enemy(GameplayWorld world, Grid grid, int maxHealth)
     {
         this.world = world;
-        this.path = new ArrayList<Point>(path);
         this.grid = grid;
+        
+        this.path = AStarPathfinder.pathfinder(grid.getPathfinderGrid(), new Point(0,0), new Point(11,8));
         
         health = maxHealth;
         reward = 25;
-
+        
         nextPathPoint();
+        recalculatePath();
         // System.out.println(currentPoint.getTilePoint());
     }
     
@@ -64,6 +67,13 @@ public class Enemy extends Actor
                 world.loseLife();
                 world.removeObject(this);
             }
+        }
+        
+        // Sometimes the path re-randomizes just for fun
+        if (Math.random() < 0.001)
+        {
+            recalculatePath();
+            System.out.println("randomized");
         }
     }
     

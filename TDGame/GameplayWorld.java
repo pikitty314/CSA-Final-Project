@@ -15,8 +15,6 @@ public class GameplayWorld extends BaseWorld
     
     GridPoint selected = null;
     
-    ArrayList<Point> defaultPath;
-    
     int money = 250;
     int lives = 20;
     int wave = 0;
@@ -41,7 +39,7 @@ public class GameplayWorld extends BaseWorld
         {
             for (int j = 0; j < images[i].length; j++)
             {
-                images[i][j] = new GreenfootImage("images/blue-box.png");
+                images[i][j] = new GreenfootImage("images/honeycomb-cell.png");
                 block[i][j] = false;
             }
         }
@@ -53,8 +51,6 @@ public class GameplayWorld extends BaseWorld
                 addObject(tile,tile.getPixelPoint().getX(),tile.getPixelPoint().getY());
             }
         }
-        
-        defaultPath = new ArrayList<Point>();
         
         menu = new InputMenu(this);
         addObject(menu, (int)(super.getWindowWidth() * 0.9), super.getWindowHeight() / 2);
@@ -69,7 +65,7 @@ public class GameplayWorld extends BaseWorld
             path.add(new Point(j,7));
         }
         */ 
-        defaultPath = AStarPathfinder.pathfinder(grid.getPathfinderGrid(), new Point(0,0), new Point(11,8));
+       
         advanceWave();
     }
     
@@ -82,7 +78,6 @@ public class GameplayWorld extends BaseWorld
                 new Enemy(
                     this,
                     grid,
-                    defaultPath,
                     currentEnemyType.getImage(),
                     currentEnemyType.getBaseHealth() * wave,
                     currentEnemyType.getReward()),
@@ -210,9 +205,6 @@ public class GameplayWorld extends BaseWorld
         addObject(toAdd, selected.getPixelPoint().getX(), selected.getPixelPoint().getY());
         setSelectedGridPoint(selected); // Deselect the gridpoint
         
-        // Recalculate the paths
-        defaultPath = newPath;
-        System.out.println(defaultPath);
         List<Enemy> enemies = new ArrayList<Enemy>();
         enemies = getObjects(Enemy.class);
         for (Enemy x : enemies)

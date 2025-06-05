@@ -27,6 +27,6 @@ public class Counter extends Actor
      */
     public void act()
     {
-        this.setImage(new GreenfootImage(text + "" + val.getAsInt(), size, Color.BLACK, Color.WHITE));
+        this.setImage(new GreenfootImage(text + "" + val.getAsInt(), size, Color.BLACK, new Color(255, 230, 193, 255)));
     }
 }

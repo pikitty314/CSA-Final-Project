@@ -94,8 +94,8 @@ public class AStarPathfinder
             if (current.equals(end))
             {
                 ArrayList<Point> path = reconstructPath(cameFrom, current);
-                System.out.println(path);
-                System.out.println("Path found after checking " + pointsChecked + " neighboring points.");
+                // System.out.println(path);
+                // System.out.println("Path found after checking " + pointsChecked + " neighboring points.");
                 return path;
             }
             
@@ -105,8 +105,10 @@ public class AStarPathfinder
                 // Agniva put an if statement that checked if neighbors are blocked, but I think I did that in the findNeighbors() method
                 
                 // The +1 is because Agniva said to put the distance between the two points, which is always one
-                int tentativeGScore= gScore.getOrDefault(current, Integer.MAX_VALUE - 1) + 1;
-                if (tentativeGScore < gScore.getOrDefault(neighbor, Integer.MAX_VALUE))
+                int tentativeGScore = gScore.getOrDefault(current, Integer.MAX_VALUE - 1) + 1;
+                int random = (int)(Math.random() + 0.5);
+                if (tentativeGScore < gScore.getOrDefault(neighbor, Integer.MAX_VALUE)
+                    || ((tentativeGScore == gScore.getOrDefault(neighbor, Integer.MAX_VALUE)) && (random == 1)))
                 {
                     cameFrom.put(neighbor, current);
                     gScore.put(neighbor, tentativeGScore);
