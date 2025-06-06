@@ -19,7 +19,7 @@ public class SellTowerButton extends Button
         
         this.tower = tower;
         
-        GreenfootImage picture = new GreenfootImage("images/button-red.png");
+        GreenfootImage picture = new GreenfootImage("images/sell-button.png");
         picture.scale(size, size);
         this.setImage(picture);
     }

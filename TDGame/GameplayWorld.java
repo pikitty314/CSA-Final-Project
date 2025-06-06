@@ -157,7 +157,12 @@ public class GameplayWorld extends BaseWorld
     {
         if (selected != gridPoint)
         {
+            if (selected != null)
+            {
+                selected.setTileImage(new GreenfootImage("images/honeycomb-cell.png"));
+            }
             selected = gridPoint;
+            selected.setTileImage(new GreenfootImage("images/honeycomb-cell-selected.png"));
             if (selected.getTower() == null)
             {
                 menu.showAddTowerMenu();
@@ -170,6 +175,7 @@ public class GameplayWorld extends BaseWorld
         }
         else
         {
+            selected.setTileImage(new GreenfootImage("images/honeycomb-cell.png"));
             selected = null;
             menu.hideTowerMenu();
             // System.out.println("Deselected: " + gridPoint.getTilePoint());

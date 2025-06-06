@@ -1,3 +1,5 @@
+import greenfoot.*;
+
 /**
  * Write a description of class GridPoint here.
  * 
@@ -90,5 +92,10 @@ public class GridPoint
     {
         this.tower = null;
         setCanBeInEnemyPath(true);
+    }
+    
+    public void setTileImage(GreenfootImage image)
+    {
+        this.tile.changeImage(image);
     }
 }

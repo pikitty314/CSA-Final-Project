@@ -16,7 +16,7 @@ public class Tile extends Actor
     {
         super();
         this.world = world;
-        this.setImage(image);
+        super.setImage(image);
         this.pixelPose = pixelPosition;
         this.gridPoint = gridPoint;
     }
@@ -25,7 +25,7 @@ public class Tile extends Actor
     {
         super();
         this.world = world;
-        this.setImage(image);
+        super.setImage(image);
         this.pixelPose = new Point(pixelPoseX, pixelPoseY);
         this.gridPoint = new Point(gridX, gridY);
     }
@@ -50,5 +50,15 @@ public class Tile extends Actor
     public void uponPress()
     {
         world.setSelectedGridPoint(world.getGrid().getPoint(gridPoint));
+    }
+    
+    /* For some obscure reason,
+     * it seems like super.setImage() would call the method below
+     * if it were called setImage() */
+    public void changeImage(GreenfootImage image)
+    {
+        image.scale(world.getTileSideLength(), world.getTileSideLength());
+        System.out.println(this.world);
+        super.setImage(image);
     }
 }

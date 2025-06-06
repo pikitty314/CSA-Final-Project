@@ -8,7 +8,7 @@ import greenfoot.*;
  */
 public enum EnemyTypes  
 {
-    BEE (new GreenfootImage("images/bee.png"), 200, 25);
+    BEE (new GreenfootImage("images/fly_01.png"), 200, 25);
     
     public final GreenfootImage image;
     public final int reward;

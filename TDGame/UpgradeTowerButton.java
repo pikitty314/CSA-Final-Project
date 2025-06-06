@@ -19,7 +19,7 @@ public class UpgradeTowerButton extends Button
         
         this.tower = tower;
         
-        GreenfootImage picture = new GreenfootImage("images/button-blue.png");
+        GreenfootImage picture = new GreenfootImage("images/upgrade-button.png");
         picture.scale(size, size);
         this.setImage(picture);
     }

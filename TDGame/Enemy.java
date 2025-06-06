@@ -73,7 +73,7 @@ public class Enemy extends Actor
         if (Math.random() < 0.001)
         {
             recalculatePath();
-            System.out.println("randomized");
+            // System.out.println("randomized");
         }
     }
     

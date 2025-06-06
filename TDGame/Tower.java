@@ -149,11 +149,11 @@ public class Tower extends Actor
             range++;
             upgradePrice *= 2;
             
-            System.out.println("UPGRADE COMPLETE");
+            // System.out.println("UPGRADE COMPLETE");
             
-            if (getImage().getHeight() < world.getTileSideLength() - 4)
+            if (getImage().getHeight() < world.getTileSideLength())
             {
-                int newSideLength = getImage().getHeight() + (((world.getTileSideLength() - 4) - (getImage().getHeight())) / 2);
+                int newSideLength = getImage().getHeight() + (((world.getTileSideLength()) - (getImage().getHeight())) / 3);
                 getImage().scale(newSideLength, newSideLength);
             }
         }       
