@@ -44,6 +44,6 @@ public class AddTowerButton extends Button
     @Override
     public void uponPress()
     {
-        world.addTower();
+        world.addTower(type);
     }
 }

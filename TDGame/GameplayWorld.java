@@ -187,10 +187,10 @@ public class GameplayWorld extends BaseWorld
         return selected;
     }
     
-    public void addTower()
+    public void addTower(TowerTypes type)
     {
         // check that there is enough money; has filler values
-        if (money < 100)
+        if (money < type.price())
         {
             return;
         }
@@ -205,9 +205,9 @@ public class GameplayWorld extends BaseWorld
             return;
         }
         
-        money -= 100;
+        money -= type.price();
         
-        Tower toAdd = new Tower(this, new GreenfootImage("images/lighthouse.png"), selected, 3);
+        Tower toAdd = new Tower(this, type, selected);
         addObject(toAdd, selected.getPixelPoint().getX(), selected.getPixelPoint().getY());
         setSelectedGridPoint(selected); // Deselect the gridpoint
         

@@ -11,12 +11,22 @@ public enum EnemyTypes
     BEE (new GreenfootImage("images/fly_01.png"), 200, 25);
     
     public final GreenfootImage image;
+    public final GreenfootImage animatedImage;
     public final int reward;
     public final int baseHealth;
     
     EnemyTypes(GreenfootImage image, int baseHealth, int reward)
     {
         this.image = image;
+        this.animatedImage = image;
+        this.baseHealth = baseHealth;
+        this.reward = reward;
+    }
+    
+    EnemyTypes(GreenfootImage image, GreenfootImage animatedImage, int baseHealth, int reward)
+    {
+        this.image = image;
+        this.animatedImage = animatedImage;
         this.baseHealth = baseHealth;
         this.reward = reward;
     }

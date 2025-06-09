@@ -15,6 +15,10 @@ public class Tower extends Actor
     
     private boolean play = true;
     
+    private GreenfootImage defaultImage;
+    private GreenfootImage animatedImage;
+    private boolean animatedPlaying;
+    
     private GridPoint position;
     
     private int range;
@@ -23,7 +27,7 @@ public class Tower extends Actor
     private int upgradePrice;
     
     
-    public Tower(GameplayWorld world, TowerTypes type, GreenfootImage image, GridPoint position, int rangeInTiles, int damage)
+    public Tower(GameplayWorld world, TowerTypes type, GridPoint position)
     {
         super();
         
@@ -34,57 +38,21 @@ public class Tower extends Actor
         
         this.position = position;
         
-        this.range = rangeInTiles * world.getTileSideLength();
-        this.damage = damage;
+        this.range = type.getRangeInTiles() * world.getTileSideLength();
+        this.damage = type.damage();
         
-        this.setImage(image);
-        this.getImage().scale(world.getTileSideLength() / 2, world.getTileSideLength() / 2);
+        this.defaultImage = new GreenfootImage(type.getImage());
+        this.animatedImage = new GreenfootImage(type.getAnimatedImage());
+        int imageScale = world.getTileSideLength() / 2;
+        defaultImage.scale(imageScale, imageScale);
+        animatedImage.scale(imageScale, imageScale);
+        
+        this.setImage(defaultImage);
         this.setLocation(position.getPixelPoint().getX(), position.getPixelPoint().getY());
         
         position.placeTower(this);
     }
     
-    public Tower(GameplayWorld world, GreenfootImage image, GridPoint position, int rangeInTiles, int damage)
-    {
-        super();
-        
-        this.world = world;
-        
-        this.type = TowerTypes.LIGHTHOUSE;
-        this.upgradePrice = type.price() * 2;
-        
-        this.position = position;
-        
-        this.range = rangeInTiles * world.getTileSideLength();
-        this.damage = damage;
-        
-        this.setImage(image);
-        this.getImage().scale(world.getTileSideLength() / 2, world.getTileSideLength() / 2);
-        this.setLocation(position.getPixelPoint().getX(), position.getPixelPoint().getY());
-        
-        position.placeTower(this);
-    }
-    
-    public Tower(GameplayWorld world, GreenfootImage image, GridPoint position, int rangeInTiles)
-    {
-        super();
-        
-        this.world = world;
-        
-        this.position = position;
-        
-        this.type = TowerTypes.LIGHTHOUSE;
-        this.upgradePrice = type.price() * 2;
-        
-        this.range = rangeInTiles * world.getTileSideLength();
-        damage = 1;
-        
-        this.setImage(image);
-        this.getImage().scale(world.getTileSideLength() / 2, world.getTileSideLength() / 2);
-        this.setLocation(position.getPixelPoint().getX(), position.getPixelPoint().getY());
-        
-        position.placeTower(this);
-    }
     
     /**
      * Act - do whatever the Tower wants to do. This method is called whenever
@@ -119,11 +87,21 @@ public class Tower extends Actor
         if (target == null)
         {
             setRotation(0);
+            animatedPlaying = false;
+            setImage(defaultImage);
             return;
         }
         else
         {
             turnTowards(target.getX(), target.getY());
+            
+            if (!animatedPlaying)
+            {
+                setImage(animatedImage);
+                System.out.println("started playing");
+                animatedPlaying = true;
+            }
+            
             target.doDamage(damage);
         }        
     }
@@ -154,7 +132,8 @@ public class Tower extends Actor
             if (getImage().getHeight() < world.getTileSideLength())
             {
                 int newSideLength = getImage().getHeight() + (((world.getTileSideLength()) - (getImage().getHeight())) / 3);
-                getImage().scale(newSideLength, newSideLength);
+                defaultImage.scale(newSideLength, newSideLength);
+                animatedImage.scale(newSideLength, newSideLength);
             }
         }       
     }
