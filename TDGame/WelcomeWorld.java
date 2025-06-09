@@ -15,7 +15,7 @@ public class WelcomeWorld extends BaseWorld
     public WelcomeWorld()
     {    
         super();
-        title = new GreenfootImage("images/VeryBasicTitle.png");
+        title = new GreenfootImage("images/title-page.png");
         title.scale(super.getWindowWidth(), super.getWindowHeight());
         setBackground(title);
         
