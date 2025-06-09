@@ -98,7 +98,6 @@ public class Tower extends Actor
             if (!animatedPlaying)
             {
                 setImage(animatedImage);
-                System.out.println("started playing");
                 animatedPlaying = true;
             }
             

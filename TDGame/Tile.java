@@ -58,7 +58,6 @@ public class Tile extends Actor
     public void changeImage(GreenfootImage image)
     {
         image.scale(world.getTileSideLength(), world.getTileSideLength());
-        System.out.println(this.world);
         super.setImage(image);
     }
 }
