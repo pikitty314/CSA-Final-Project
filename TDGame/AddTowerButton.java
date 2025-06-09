@@ -29,7 +29,7 @@ public class AddTowerButton extends Button
         
         this.world = world;
         
-        this.type = TowerTypes.LIGHTHOUSE;
+        this.type = TowerTypes.TASER;
         
         this.setImage(towerImage);
         this.getImage().scale(size, size);
