@@ -8,27 +8,35 @@ import greenfoot.*;
  */
 public enum EnemyTypes  
 {
-    BEE (new GreenfootImage("images/fly_01.png"), 200, 25);
+    MITE (new GreenfootImage("images/enemies/mite.png"), 31, 40, 200, 25),
+    ANT (new GreenfootImage("images/enemies/ant.png"), 50, 26, 200, 25),
+    FLY (new GreenfootImage("images/enemies/fly.png"), 50, 34, 200, 25),
+    BEETLE (new GreenfootImage("images/enemies/beetle.png"), 52, 34, 200, 25),
+    LADYBUG (new GreenfootImage("images/enemies/ladybug.png"), 42, 50, 200, 25),
+    HEMIPTERA (new GreenfootImage("images/enemies/hemiptera-green.png"), 50, 47, 200, 25),
+    DRAGONFLY (new GreenfootImage("images/enemies/dragonfly.png"), 120, 90, 1000, 100, true);
     
     public final GreenfootImage image;
-    public final GreenfootImage animatedImage;
     public final int reward;
     public final int baseHealth;
+    public final boolean isBoss;
     
-    EnemyTypes(GreenfootImage image, int baseHealth, int reward)
+    EnemyTypes(GreenfootImage image, int xScale, int yScale, int baseHealth, int reward, boolean isBoss)
     {
         this.image = image;
-        this.animatedImage = image;
+        this.image.scale(xScale, yScale);
         this.baseHealth = baseHealth;
         this.reward = reward;
+        this.isBoss = isBoss;
     }
     
-    EnemyTypes(GreenfootImage image, GreenfootImage animatedImage, int baseHealth, int reward)
+    EnemyTypes(GreenfootImage image, int xScale, int yScale, int baseHealth, int reward)
     {
         this.image = image;
-        this.animatedImage = animatedImage;
+        this.image.scale(xScale, yScale);
         this.baseHealth = baseHealth;
         this.reward = reward;
+        this.isBoss = false;
     }
     
     public GreenfootImage getImage()

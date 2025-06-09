@@ -22,7 +22,10 @@ public class GameplayWorld extends BaseWorld
     // wave related variables
     int enemiesRemainingInWave = 0;
     int enemyWait = 0;
-    EnemyTypes currentEnemyType = EnemyTypes.BEE;
+    
+    ArrayList<EnemyTypes> regularEnemyList = new ArrayList<EnemyTypes>();
+    ArrayList<EnemyTypes> bossEnemyList = new ArrayList<EnemyTypes>();
+    EnemyTypes currentEnemyType = EnemyTypes.DRAGONFLY;
     
     /**
      * Constructor for objects of class GameplayWorld.
@@ -55,16 +58,14 @@ public class GameplayWorld extends BaseWorld
         menu = new InputMenu(this);
         addObject(menu, (int)(super.getWindowWidth() * 0.9), super.getWindowHeight() / 2);
         
-        /*
-        for (int i = 0; i < 8; i++)
-        {
-            path.add(new Point(i,i));
-        }
-        for (int j = 8; j < 12; j++)
-        {
-            path.add(new Point(j,7));
-        }
-        */ 
+        regularEnemyList.add(EnemyTypes.MITE);
+        regularEnemyList.add(EnemyTypes.ANT);
+        regularEnemyList.add(EnemyTypes.FLY);
+        regularEnemyList.add(EnemyTypes.BEETLE);
+        regularEnemyList.add(EnemyTypes.LADYBUG);
+        regularEnemyList.add(EnemyTypes.HEMIPTERA);
+        
+        bossEnemyList.add(EnemyTypes.DRAGONFLY);
        
         advanceWave();
     }
@@ -134,12 +135,21 @@ public class GameplayWorld extends BaseWorld
     
     public void advanceWave()
     {
-        enemiesRemainingInWave = (int)(Math.random() * 30) + 1;
         enemyWait = 500;
-        
         addMoney(150);
         
         wave++;
+        
+        if (wave % 20 != 0)
+        {
+            currentEnemyType = regularEnemyList.get((int)(Math.random() * regularEnemyList.size()));
+            enemiesRemainingInWave = (int)(Math.random() * 15) + wave;
+        }
+        else
+        {
+            currentEnemyType = bossEnemyList.get((int)(Math.random() * bossEnemyList.size()));
+            enemiesRemainingInWave = 1;
+        }
     }
     
     public int getWave()
