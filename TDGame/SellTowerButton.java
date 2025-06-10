@@ -30,4 +30,9 @@ public class SellTowerButton extends Button
         tower.sellTower();
         world.getMenu().hideTowerMenu();
     }
+    
+    public int getTowerSaleValue()
+    {
+        return tower.getSaleValue();
+    }
 }

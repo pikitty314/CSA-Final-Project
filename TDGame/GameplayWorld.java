@@ -36,7 +36,7 @@ public class GameplayWorld extends BaseWorld
     public GameplayWorld()
     {
         super(12, 9);
-        this.setPaintOrder(Button.class, Counter.class, InputMenu.class, Enemy.class, Tower.class, Button.class);
+        this.setPaintOrder(Button.class, Counter.class, Label.class, InputMenu.class, Enemy.class, Tower.class, Button.class);
         grid = new Grid(super.getGridXSize(), super.getGridYSize());
         GreenfootImage[][] images = new GreenfootImage[super.getGridYSize()][super.getGridXSize()];
         boolean[][] block = new boolean[super.getGridYSize()][super.getGridXSize()];

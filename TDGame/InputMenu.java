@@ -18,6 +18,7 @@ public class InputMenu extends Actor
     
     ArrayList<AddTowerButton> addTowerButtons = new ArrayList<AddTowerButton>();
     ArrayList<Button> upgradeTowerButtons = new ArrayList<Button>();
+    ArrayList<Label> activeLabels = new ArrayList<Label>();
     
     public InputMenu(GameplayWorld world)
     {
@@ -61,6 +62,10 @@ public class InputMenu extends Actor
         {
             world.addObject(button, xPos, yPos);
             
+            Label label = new Label("$" + button.getTowerPrice(), 25);
+            activeLabels.add(label);
+            world.addObject(label, xPos, yPos + 50);
+            
             if(!rowComplete)
             {
                 xPos += (int)(buttonSideLength * 1.3);
@@ -68,7 +73,7 @@ public class InputMenu extends Actor
             }
             else
             {
-                yPos += (int)(buttonSideLength * 1.3);
+                yPos += (int)(buttonSideLength * 1.6);
                 xPos = (int)(buttonSideLength * 15.59);
                 rowComplete = false;
             }
@@ -91,6 +96,19 @@ public class InputMenu extends Actor
         {
             world.addObject(button, xPos, yPos);
             
+            if (button instanceof SellTowerButton)
+            {
+                Label label = new Label("+$" + ((SellTowerButton)button).getTowerSaleValue(), 25);
+                activeLabels.add(label);
+                world.addObject(label, xPos, yPos + 50);
+            }
+            else if (button instanceof UpgradeTowerButton)
+            {
+                Label label = new Label("$" + ((UpgradeTowerButton)button).getTowerUpgradePrice(), 25);
+                activeLabels.add(label);
+                world.addObject(label, xPos, yPos + 50);
+            }
+            
             if(!rowComplete)
             {
                 xPos += (int)(buttonSideLength * 1.3);
@@ -98,7 +116,7 @@ public class InputMenu extends Actor
             }
             else
             {
-                yPos += (int)(buttonSideLength * 1.3);
+                yPos += (int)(buttonSideLength * 1.6);
                 xPos = (int)(buttonSideLength * 15.59);
                 rowComplete = false;
             }
@@ -115,6 +133,11 @@ public class InputMenu extends Actor
         for (int i = 0; i < upgradeTowerButtons.size();)
         {
             world.removeObject(upgradeTowerButtons.remove(i));
+        }
+        
+        for (int i = 0; i < activeLabels.size();)
+        {
+            world.removeObject(activeLabels.remove(i));
         }
     }
 }

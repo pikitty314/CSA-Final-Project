@@ -46,4 +46,9 @@ public class AddTowerButton extends Button
     {
         world.addTower(type);
     }
+    
+    public int getTowerPrice()
+    {
+        return type.price();
+    }
 }

@@ -25,6 +25,7 @@ public class Tower extends Actor
     private int damage;
     
     private int upgradePrice;
+    private int saleValue;
     
     
     public Tower(GameplayWorld world, TowerTypes type, GridPoint position)
@@ -34,6 +35,7 @@ public class Tower extends Actor
         this.world = world;
         
         this.type = type;
+        this.saleValue = type.price() / 2;
         this.upgradePrice = type.price() * 2;
         
         this.position = position;
@@ -112,7 +114,7 @@ public class Tower extends Actor
     
     public void sellTower()
     {
-        world.addMoney(type.price() / 2);
+        world.addMoney(saleValue);
         position.removeTower();
         world.removeObject(this);
     }
@@ -124,6 +126,7 @@ public class Tower extends Actor
             world.spendMoney(upgradePrice);
             damage *= 2;
             range++;
+            saleValue += upgradePrice / 2;
             upgradePrice *= 2;
             
             // System.out.println("UPGRADE COMPLETE");
@@ -135,6 +138,16 @@ public class Tower extends Actor
                 animatedImage.scale(newSideLength, newSideLength);
             }
         }       
+    }
+    
+    public int getSaleValue()
+    {
+        return saleValue;
+    }
+    
+    public int getUpgradePrice()
+    {
+        return upgradePrice;
     }
     
     public void resume()

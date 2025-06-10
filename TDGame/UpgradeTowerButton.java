@@ -30,4 +30,9 @@ public class UpgradeTowerButton extends Button
         tower.upgradeTower();
         world.getMenu().hideTowerMenu();
     }
+    
+    public int getTowerUpgradePrice()
+    {
+        return tower.getUpgradePrice();
+    }
 }
