@@ -19,6 +19,6 @@ public class WelcomeWorld extends BaseWorld
         title.scale(super.getWindowWidth(), super.getWindowHeight());
         setBackground(title);
         
-        addObject(new PlayButton(super.getTileSideLength()), super.getWindowWidth() / 2 , (int)(super.getWindowHeight() / 1.7));
+        addObject(new StartButton(super.getTileSideLength()), super.getWindowWidth() / 2 , (int)(super.getWindowHeight() / 1.7));
     }
 }

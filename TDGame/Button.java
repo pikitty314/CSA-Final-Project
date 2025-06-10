@@ -13,9 +13,10 @@ public class Button extends Actor
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
     public void act()
-    {
+    {        
         if(Greenfoot.mouseClicked(this))
         {
+            System.out.println("MOUSE CLICKED!");
             uponPress();
         }
     }

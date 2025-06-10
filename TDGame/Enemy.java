@@ -162,4 +162,14 @@ public class Enemy extends Actor
             world.killEnemy(reward); // 25 is just a filler value
         }
     }
+    
+    public void resume()
+    {
+        play = true;
+    }
+    
+    public void pause()
+    {
+        play = false;
+    }
 }

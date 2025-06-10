@@ -27,6 +27,8 @@ public class GameplayWorld extends BaseWorld
     ArrayList<EnemyTypes> bossEnemyList = new ArrayList<EnemyTypes>();
     EnemyTypes currentEnemyType = EnemyTypes.DRAGONFLY;
     
+    boolean isPlaying;
+    
     /**
      * Constructor for objects of class GameplayWorld.
      * 
@@ -55,6 +57,8 @@ public class GameplayWorld extends BaseWorld
             }
         }
         
+        isPlaying = true;
+        
         menu = new InputMenu(this);
         addObject(menu, (int)(super.getWindowWidth() * 0.9), super.getWindowHeight() / 2);
         
@@ -66,12 +70,23 @@ public class GameplayWorld extends BaseWorld
         regularEnemyList.add(EnemyTypes.HEMIPTERA);
         
         bossEnemyList.add(EnemyTypes.DRAGONFLY);
-       
+        
         advanceWave();
     }
     
     public void act()
     {
+        // Check if allowed to play
+        if (isPlaying)
+        {
+            play(false);
+        }
+        else
+        {
+            pause(false);
+            return;
+        }
+        
         // Create enemies
         if (enemyWait <= 0)
         {
@@ -226,6 +241,58 @@ public class GameplayWorld extends BaseWorld
         for (Enemy x : enemies)
         {
             x.recalculatePath();
+        }
+    }
+    
+    public boolean getIsPlaying()
+    {
+        return isPlaying;
+    }
+    
+    public void play(boolean setState)
+    {
+        if (setState)
+        {
+            isPlaying = true;
+            // System.out.println("\n\n\nRESUMED!\n\n\n\n\n\nRESUMED!\n\n\n");
+        }
+        
+        List<Enemy> enemies = new ArrayList<Enemy>();
+        enemies = getObjects(Enemy.class);
+        for (Enemy x : enemies)
+        {
+            x.resume();
+        }
+        
+        List<Tower> towers = new ArrayList<Tower>();
+        towers = getObjects(Tower.class);
+        for (Tower x : towers)
+        {
+            x.resume();
+        }
+    }
+    
+    public void pause(boolean setState)
+    {
+        if (setState)
+        {
+            isPlaying = false;
+            System.out.println("\n\n\nPAUSED!\n\n\n\n\n\nPAUSED!\n\n\n");
+            System.out.println(isPlaying);
+        }
+        
+        List<Enemy> enemies = new ArrayList<Enemy>();
+        enemies = getObjects(Enemy.class);
+        for (Enemy x : enemies)
+        {
+            x.pause();
+        }
+        
+        List<Tower> towers = new ArrayList<Tower>();
+        towers = getObjects(Tower.class);
+        for (Tower x : towers)
+        {
+            x.pause();
         }
     }
 }

@@ -136,4 +136,14 @@ public class Tower extends Actor
             }
         }       
     }
+    
+    public void resume()
+    {
+        play = true;
+    }
+    
+    public void pause()
+    {
+        play = false;
+    }
 }
