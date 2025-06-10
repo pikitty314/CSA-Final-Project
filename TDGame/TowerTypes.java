@@ -8,35 +8,38 @@ import greenfoot.*;
  */
 public enum TowerTypes  
 {
-    STINGER (new GreenfootImage("images/towers/stinger-retracted.png"), new GreenfootImage("images/towers/stinger-animated.gif"), 1, 10, 100),
-    POLLEN_TURRET(new GreenfootImage("images/towers/pollen-turret.png"), 3, 2, 150),
-    STAR_SLINGER(new GreenfootImage("images/towers/star-slinger.png"), 5, 2, 200),
-    TASER(new GreenfootImage("images/towers/taser.png"), 12, 3, 250);
+    STINGER (new GreenfootImage("images/towers/stinger-retracted.png"), new GreenfootImage("images/towers/stinger-animated.gif"), new GreenfootImage("projectiles/stinger.png"), 1, 50, 10, 100),
+    POLLEN_TURRET(new GreenfootImage("images/towers/pollen-turret.png"), new GreenfootImage("projectiles/pollen.png"), 3, 75, 25, 150),
+    STAR_SLINGER(new GreenfootImage("images/towers/star-slinger.png"), new GreenfootImage("projectiles/throwing-star.png"), 5, 200, 200, 200),
+    TASER(new GreenfootImage("images/towers/taser.png"), new GreenfootImage("projectiles/taser-bolt.png"), 12, 100, 100, 250);
     
     private final GreenfootImage image;
     private final GreenfootImage animatedImage;
+    private final GreenfootImage projectile;
     private final int rangeInTiles;
     private final int damage;
-    
+    private final int cooldown;
     private final int price;
     
-    TowerTypes(GreenfootImage image, int rangeInTiles, int damage, int price)
+    TowerTypes(GreenfootImage image, GreenfootImage projectile, int rangeInTiles, int damage, int cooldown, int price)
     {
         this.image = image;
         this.animatedImage = image;
+        this.projectile = projectile;
         this.rangeInTiles = rangeInTiles;
         this.damage = damage;
-        
+        this.cooldown = cooldown;
         this.price = price;
     }
     
-    TowerTypes(GreenfootImage image, GreenfootImage animatedImage, int rangeInTiles, int damage, int price)
+    TowerTypes(GreenfootImage image, GreenfootImage animatedImage, GreenfootImage projectile, int rangeInTiles, int damage, int cooldown, int price)
     {
         this.image = image;
         this.animatedImage = animatedImage;
+        this.projectile = projectile;
         this.rangeInTiles = rangeInTiles;
         this.damage = damage;
-        
+        this.cooldown = cooldown;
         this.price = price;
     }
     
@@ -50,6 +53,11 @@ public enum TowerTypes
         return animatedImage;
     }
     
+    public GreenfootImage getProjectileImage()
+    {
+        return projectile;
+    }
+    
     public int getRangeInTiles()
     {
         return rangeInTiles;
@@ -58,6 +66,11 @@ public enum TowerTypes
     public int damage()
     {
         return damage;
+    }
+    
+    public int getCooldown()
+    {
+        return cooldown;
     }
     
     public int price()

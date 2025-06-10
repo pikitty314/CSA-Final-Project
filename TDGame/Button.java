@@ -16,7 +16,6 @@ public class Button extends Actor
     {        
         if(Greenfoot.mouseClicked(this))
         {
-            System.out.println("MOUSE CLICKED!");
             uponPress();
         }
     }

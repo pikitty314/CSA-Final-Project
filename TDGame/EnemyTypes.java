@@ -8,13 +8,13 @@ import greenfoot.*;
  */
 public enum EnemyTypes  
 {
-    MITE (new GreenfootImage("images/enemies/mite.png"), 31, 40, 200, 25),
+    MITE (new GreenfootImage("images/enemies/mite.png"), 31, 40, 50, 10),
     ANT (new GreenfootImage("images/enemies/ant.png"), 50, 26, 200, 25),
     FLY (new GreenfootImage("images/enemies/fly.png"), 50, 34, 200, 25),
-    BEETLE (new GreenfootImage("images/enemies/beetle.png"), 52, 34, 200, 25),
-    LADYBUG (new GreenfootImage("images/enemies/ladybug.png"), 42, 50, 200, 25),
-    HEMIPTERA (new GreenfootImage("images/enemies/hemiptera-green.png"), 50, 47, 200, 25),
-    DRAGONFLY (new GreenfootImage("images/enemies/dragonfly.png"), 120, 90, 1000, 100, true);
+    BEETLE (new GreenfootImage("images/enemies/beetle.png"), 52, 34, 300, 35),
+    LADYBUG (new GreenfootImage("images/enemies/ladybug.png"), 42, 50, 300, 35),
+    HEMIPTERA (new GreenfootImage("images/enemies/hemiptera-green.png"), 50, 47, 150, 20),
+    DRAGONFLY (new GreenfootImage("images/enemies/dragonfly.png"), 120, 90, 1000, 250, true);
     
     public final GreenfootImage image;
     public final int reward;

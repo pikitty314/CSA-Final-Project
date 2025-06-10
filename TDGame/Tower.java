@@ -23,6 +23,7 @@ public class Tower extends Actor
     
     private int range;
     private int damage;
+    private int cooldownTimer;
     
     private int upgradePrice;
     private int saleValue;
@@ -74,6 +75,16 @@ public class Tower extends Actor
     
     public void runAttackSystem()
     {
+        if (!(cooldownTimer <= 0))
+        {
+            cooldownTimer--;
+            return;
+        }
+        else
+        {
+            cooldownTimer = type.getCooldown();
+        }
+        
         List<Enemy> enemies = this.getObjectsInRange(range, Enemy.class);
         Enemy target = null;
         
@@ -103,7 +114,7 @@ public class Tower extends Actor
                 animatedPlaying = true;
             }
             
-            target.doDamage(damage);
+            world.addObject(new Projectile(target, type.getProjectileImage(), this.getImage().getHeight() / 2, damage), this.getX(), this.getY());
         }        
     }
     
