@@ -19,7 +19,7 @@ public class GameplayWorld extends BaseWorld
     int lives = 20;
     int wave = 0;
     
-    int waveGoal = Integer.MAX_VALUE;
+    int waveGoal = 25;
     
     // wave related variables
     int enemiesRemainingInWave = 0;
@@ -35,9 +35,9 @@ public class GameplayWorld extends BaseWorld
     public GameplayWorld(boolean endless)
     {
         this();
-        if(!endless)
+        if(endless)
         {
-            waveGoal = 25;
+            waveGoal = Integer.MAX_VALUE;
         }
     }
     
