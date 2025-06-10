@@ -10,7 +10,7 @@ public class GameEndWorld extends BaseWorld
 {
     /**
      * Constructor for objects of class GameEndWorld.
-     * 
+     * (world shown after win or lose)
      */
     public GameEndWorld(boolean win)
     {

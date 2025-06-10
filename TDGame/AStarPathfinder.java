@@ -6,6 +6,10 @@ import java.util.*;
  */
 public class AStarPathfinder
 {
+    /** Checks if the passed in point
+     *  is inside the grid
+     *  and is a point that can be passed through
+     */
     public static boolean legalPoint(boolean[][] grid, Point point)
     {
         int x = point.getX();
@@ -22,6 +26,10 @@ public class AStarPathfinder
         return true;
     }
     
+    /** Gets all legal neighbors of a point (up, down, left, right, not diagonal)
+     *  
+     *  @return An ArrayList<Point> containing the neighbors
+     */
     public static ArrayList<Point> findNeighbors(boolean[][] grid, Point point)
     {
         ArrayList<Point> neighbors = new ArrayList<Point>();
@@ -67,6 +75,7 @@ public class AStarPathfinder
      */
     public static ArrayList<Point> pathfinder(boolean[][] grid, Point start, Point end)
     {            
+        // HashMap of a point and the one prior to it
         HashMap<Point, Point> cameFrom = new HashMap<>();
         
         // Map holding the cost to reach each node
@@ -89,16 +98,16 @@ public class AStarPathfinder
         while (!openSet.isEmpty())
         {
             Point current = openSet.poll();
-            //System.out.println(current);
             
+            // End reached
             if (current.equals(end))
             {
                 ArrayList<Point> path = reconstructPath(cameFrom, current);
-                // System.out.println(path);
-                // System.out.println("Path found after checking " + pointsChecked + " neighboring points.");
+               
                 return path;
             }
             
+            // Check all neighbors and add the best ones to the cameFrom, fScore, and gScore maps (and openSet, if applicable)
             for (Point neighbor : findNeighbors(grid, current))
             {
                 pointsChecked++;
@@ -106,7 +115,7 @@ public class AStarPathfinder
                 
                 // The +1 is because Agniva said to put the distance between the two points, which is always one
                 int tentativeGScore = gScore.getOrDefault(current, Integer.MAX_VALUE - 1) + 1;
-                int random = (int)(Math.random() + 0.5);
+                int random = (int)(Math.random() + 0.5); // used if they are equal so the path isn't always the same
                 if (tentativeGScore < gScore.getOrDefault(neighbor, Integer.MAX_VALUE)
                     || ((tentativeGScore == gScore.getOrDefault(neighbor, Integer.MAX_VALUE)) && (random == 1)))
                 {
@@ -132,6 +141,10 @@ public class AStarPathfinder
         return Math.abs(node.getX() - goal.getX()) + Math.abs(node.getY() -  goal.getY());
     }
     
+    /** Reconstructs the path based on the HashMap that contains a point and the one before it.
+     *  
+     *  @return An ArrayList<Point> containing the path.
+     */
     public static ArrayList<Point> reconstructPath(HashMap<Point, Point> map, Point current)
     {
         ArrayList<Point> totalPath = new ArrayList<Point>();

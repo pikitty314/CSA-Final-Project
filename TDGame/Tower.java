@@ -28,7 +28,7 @@ public class Tower extends Actor
     private int upgradePrice;
     private int saleValue;
     
-    
+    /** Constructs a tower in world of type at position */
     public Tower(GameplayWorld world, TowerTypes type, GridPoint position)
     {
         super();

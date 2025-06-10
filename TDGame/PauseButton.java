@@ -22,7 +22,7 @@ public class PauseButton extends Button
     @Override
     public void uponPress()
     {
-        System.out.println("BUTTON PRESSED");
+        // Pause the game, show play button
         world.pause(true);
         world.addObject(new PlayButton(world), this.getX(), this.getY());
         world.removeObject(this);

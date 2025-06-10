@@ -19,6 +19,7 @@ public class StartButton extends Button
     @Override
     public void uponPress()
     {
+        // Start the game
         Greenfoot.setWorld(new GameplayWorld());
     }
 }
