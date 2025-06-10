@@ -43,6 +43,7 @@ public class WelcomeWorld extends BaseWorld
         drawWelcomePage();
     }
     
+    /** Draws the title screen */
     public void drawWelcomePage()
     {
         setBackground(title);
@@ -52,6 +53,7 @@ public class WelcomeWorld extends BaseWorld
         addObject(aboutTowersButton, 3*(super.getWindowWidth() / 4), (int)(super.getWindowHeight() / 1.4));
     }
     
+    /** Clears the title screen */
     public void deleteWelcomePage()
     {
         removeObject(startButton);
@@ -60,6 +62,7 @@ public class WelcomeWorld extends BaseWorld
         removeObject(aboutTowersButton);
     }
     
+    /** Clears title screen then draws how to play screen */
     public void drawHowToPlayPage()
     {
         setBackground(howToPage);
@@ -67,6 +70,7 @@ public class WelcomeWorld extends BaseWorld
         deleteWelcomePage();
     }
     
+    /** Clears title screen then draws about towers page */
     public void drawAboutTowersPage()
     {
         setBackground(aboutTowersPage);

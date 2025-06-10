@@ -15,10 +15,12 @@ public class GameplayWorld extends BaseWorld
     
     GridPoint selected = null;
     
+    // game variables displayed to user
     int money = 250;
     int lives = 20;
     int wave = 0;
     
+    // to win
     int waveGoal = 25;
     
     // wave related variables
@@ -26,6 +28,7 @@ public class GameplayWorld extends BaseWorld
     int enemyWait = 0;
     GreenfootSound advanceWaveSound;
     
+    // Lists containing enemy possibilities
     ArrayList<EnemyTypes> regularEnemyList = new ArrayList<EnemyTypes>();
     ArrayList<EnemyTypes> bossEnemyList = new ArrayList<EnemyTypes>();
     EnemyTypes currentEnemyType = EnemyTypes.DRAGONFLY;
@@ -48,7 +51,10 @@ public class GameplayWorld extends BaseWorld
     public GameplayWorld()
     {
         super(12, 9);
+        
         this.setPaintOrder(Button.class, Counter.class, Label.class, InputMenu.class, Enemy.class, Tower.class, Button.class);
+        
+        // create the grid and populate with tiles
         grid = new Grid(super.getGridXSize(), super.getGridYSize());
         GreenfootImage[][] images = new GreenfootImage[super.getGridYSize()][super.getGridXSize()];
         boolean[][] block = new boolean[super.getGridYSize()][super.getGridXSize()];
@@ -71,9 +77,11 @@ public class GameplayWorld extends BaseWorld
         
         isPlaying = true;
         
+        // create the menu
         menu = new InputMenu(this);
         addObject(menu, (int)(super.getWindowWidth() * 0.9), super.getWindowHeight() / 2);
         
+        // populate enemy lists
         regularEnemyList.add(EnemyTypes.MITE);
         regularEnemyList.add(EnemyTypes.ANT);
         regularEnemyList.add(EnemyTypes.FLY);
@@ -120,6 +128,7 @@ public class GameplayWorld extends BaseWorld
             enemyWait--;
         }
         
+        // check if win
         if (enemiesRemainingInWave <= 0)
         {
             advanceWave();
@@ -168,6 +177,7 @@ public class GameplayWorld extends BaseWorld
     }
     
     
+    /** Adds money, increases the wave number, and checks if you win */
     public void advanceWave()
     {
         enemyWait = 500;
@@ -207,16 +217,21 @@ public class GameplayWorld extends BaseWorld
         enemiesRemainingInWave--;
     }
     
+    
+    /** Sets the selected grid point, or deselected a grid point */
     public void setSelectedGridPoint(GridPoint gridPoint)
     {
         if (selected != gridPoint)
         {
             if (selected != null)
             {
+                // deselect
                 selected.setTileImage(new GreenfootImage("images/honeycomb-cell.png"));
             }
             selected = gridPoint;
             selected.setTileImage(new GreenfootImage("images/honeycomb-cell-selected.png"));
+            
+            // which menu based on what the cell has
             if (selected.getTower() == null)
             {
                 menu.showAddTowerMenu();
@@ -224,15 +239,14 @@ public class GameplayWorld extends BaseWorld
             else
             {
                 menu.showUpgradeTowerMenu();
-            }
-            // System.out.println(gridPoint.getTilePoint());    
+            } 
         }
         else
         {
+            // already selected; deselect            
             selected.setTileImage(new GreenfootImage("images/honeycomb-cell.png"));
             selected = null;
             menu.hideTowerMenu();
-            // System.out.println("Deselected: " + gridPoint.getTilePoint());
         }
     }
     
@@ -241,6 +255,7 @@ public class GameplayWorld extends BaseWorld
         return selected;
     }
     
+    /** Add a tower, if possible */
     public void addTower(TowerTypes type)
     {
         // check that there is enough money; has filler values
@@ -265,6 +280,7 @@ public class GameplayWorld extends BaseWorld
         addObject(toAdd, selected.getPixelPoint().getX(), selected.getPixelPoint().getY());
         setSelectedGridPoint(selected); // Deselect the gridpoint
         
+        // recalculate enemy paths
         List<Enemy> enemies = new ArrayList<Enemy>();
         enemies = getObjects(Enemy.class);
         for (Enemy x : enemies)
@@ -278,14 +294,16 @@ public class GameplayWorld extends BaseWorld
         return isPlaying;
     }
     
+    /** Resume the game */
     public void play(boolean setState)
     {
+        // Change the state?
         if (setState)
         {
             isPlaying = true;
-            // System.out.println("\n\n\nRESUMED!\n\n\n\n\n\nRESUMED!\n\n\n");
         }
         
+        // Resume all enemies and towers
         List<Enemy> enemies = new ArrayList<Enemy>();
         enemies = getObjects(Enemy.class);
         for (Enemy x : enemies)
@@ -301,15 +319,17 @@ public class GameplayWorld extends BaseWorld
         }
     }
     
+    
+    /** Pause the game */
     public void pause(boolean setState)
     {
+        // Check if to override the state
         if (setState)
         {
             isPlaying = false;
-            System.out.println("\n\n\nPAUSED!\n\n\n\n\n\nPAUSED!\n\n\n");
-            System.out.println(isPlaying);
         }
         
+        // Pause all enemies and towers
         List<Enemy> enemies = new ArrayList<Enemy>();
         enemies = getObjects(Enemy.class);
         for (Enemy x : enemies)

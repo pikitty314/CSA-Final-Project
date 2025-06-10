@@ -16,6 +16,7 @@ public class InputMenu extends Actor
     
     GridPoint selected = null;
     
+    // ArrayLists of buttons
     ArrayList<AddTowerButton> addTowerButtons = new ArrayList<AddTowerButton>();
     ArrayList<Button> upgradeTowerButtons = new ArrayList<Button>();
     ArrayList<Label> activeLabels = new ArrayList<Label>();
@@ -28,12 +29,15 @@ public class InputMenu extends Actor
         
         buttonSideLength = (int) (world.getWindowWidth()/18);
         
+        // Add money/wave/lives counters
         world.addObject(new Counter("$", () -> world.getMoney(), world.getWindowWidth()/24), 9*(world.getWindowWidth()/10), world.getWindowHeight()/10);
         world.addObject(new Counter("Lives: ", () -> world.getLivesRemaining(), world.getWindowWidth()/40), 9*(world.getWindowWidth()/10), 4*world.getWindowHeight()/25);
         world.addObject(new Counter("Wave: ", () -> world.getWave(), world.getWindowWidth()/40), 9*(world.getWindowWidth()/10), world.getWindowHeight()/5);
         
+        // Pause button
         world.addObject(new PauseButton(world), (int)(world.getWindowWidth() * 0.9), 28 * (world.getWindowHeight() / 30));
         
+        // Fill addTowerButtons list
         addTowerButtons.add(new AddTowerButton(world, buttonSideLength, TowerTypes.STINGER));
         addTowerButtons.add(new AddTowerButton(world, buttonSideLength, TowerTypes.POLLEN_TURRET));
         addTowerButtons.add(new AddTowerButton(world, buttonSideLength, TowerTypes.STAR_SLINGER));
@@ -50,6 +54,7 @@ public class InputMenu extends Actor
         // Add your action code here.
     }
     
+    /** Draws the add tower menu, hides whatever was there before */
     public void showAddTowerMenu()
     {
         hideTowerMenu();
@@ -62,6 +67,7 @@ public class InputMenu extends Actor
         {
             world.addObject(button, xPos, yPos);
             
+            // Label for price
             Label label = new Label("$" + button.getTowerPrice(), 25);
             activeLabels.add(label);
             world.addObject(label, xPos, yPos + 50);
@@ -73,6 +79,7 @@ public class InputMenu extends Actor
             }
             else
             {
+                // Row full, next
                 yPos += (int)(buttonSideLength * 1.6);
                 xPos = (int)(buttonSideLength * 15.59);
                 rowComplete = false;
@@ -80,6 +87,7 @@ public class InputMenu extends Actor
         }
     }
     
+    /** Draws the menu for when a cell already has a tower, deletes whatever was there before */
     public void showUpgradeTowerMenu()
     {
         hideTowerMenu();
@@ -87,6 +95,7 @@ public class InputMenu extends Actor
         int xPos = (int)(buttonSideLength * 15.59);
         int yPos = (int) (buttonSideLength * 3.5);
         
+        // fill the list for later deletion
         upgradeTowerButtons.add(new UpgradeTowerButton(world, buttonSideLength, world.getSelectedGridPoint().getTower()));
         upgradeTowerButtons.add(new SellTowerButton(world, buttonSideLength, world.getSelectedGridPoint().getTower()));
         
@@ -96,6 +105,7 @@ public class InputMenu extends Actor
         {
             world.addObject(button, xPos, yPos);
             
+            // Add labels based on type (sale value or price)
             if (button instanceof SellTowerButton)
             {
                 Label label = new Label("+$" + ((SellTowerButton)button).getTowerSaleValue(), 25);
@@ -116,6 +126,7 @@ public class InputMenu extends Actor
             }
             else
             {
+                // Row is full, next
                 yPos += (int)(buttonSideLength * 1.6);
                 xPos = (int)(buttonSideLength * 15.59);
                 rowComplete = false;
@@ -123,6 +134,7 @@ public class InputMenu extends Actor
         }
     }
     
+    /** Loops through all buttons to delete */
     public void hideTowerMenu()
     {
         for (AddTowerButton button : addTowerButtons)

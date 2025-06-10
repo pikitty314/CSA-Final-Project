@@ -73,12 +73,12 @@ public class Enemy extends Actor
         if (Math.random() < 0.001)
         {
             recalculatePath();
-            // System.out.println("randomized");
         }
     }
     
     public void followPath(int speed)
     {                
+        // walk towards the end to do damage
         if (pathComplete)
         {
             this.setRotation(0);
@@ -86,46 +86,31 @@ public class Enemy extends Actor
             return;
         }
         
+        // check if point reached
         if (inRangeOfAnother(this.getX(), currentPoint.getPixelPoint().getX(), speed)
             && inRangeOfAnother(this.getY(), currentPoint.getPixelPoint().getY(), speed))
         {
             if (path.isEmpty())
             {
                 pathComplete = true;
-                // System.out.println("Reached end of path");
                 return;
             }
             nextPathPoint();
-            // System.out.println(currentPoint.getTilePoint());
         }
         
-        /* This doesn't work yet
-        if (currentPoint.getPixelPoint().getX() > this.getX())
-        {
-            this.setRotation(0);
-        } else if (currentPoint.getPixelPoint().getY() > this.getY())
-        {
-            this.setRotation(270);
-        } else if (currentPoint.getPixelPoint().getY() < this.getY())
-        {
-            this.setRotation(90);
-        } else if (currentPoint.getPixelPoint().getX() < this.getX())
-        {
-            this.setRotation(180);
-        } else
-        {
-            this.turnTowards(currentPoint.getPixelPoint().getX(), currentPoint.getPixelPoint().getY());
-        } */
+        // go to next point
         this.turnTowards(currentPoint.getPixelPoint().getX(), currentPoint.getPixelPoint().getY());
         this.move(speed);
     }
     
+    /** Selects the next path point */
     public void nextPathPoint()
     {        
         currentPoint = grid.getPoint(path.get(0).getX(),path.get(0).getY());
         path.remove(0);
     }
     
+    /** Update the enemies path */
     public void recalculatePath()
     {
         path = AStarPathfinder.pathfinder(grid.getPathfinderGrid(), currentPoint.getTilePoint(), new Point(11,8));
@@ -156,6 +141,8 @@ public class Enemy extends Actor
     public void doDamage(int amount)
     {
         health -= amount;
+        
+        // check if dead
         if (health <= 0)
         {
             Greenfoot.playSound("sounds/enemy-death.wav");

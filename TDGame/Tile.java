@@ -47,6 +47,7 @@ public class Tile extends Actor
         }
     }
     
+    /** Select for menu */
     public void uponPress()
     {
         world.setSelectedGridPoint(world.getGrid().getPoint(gridPoint));

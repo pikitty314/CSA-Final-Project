@@ -20,6 +20,7 @@ public class Button extends Actor
         }
     }
     
+    /** Method to be overridden by subclasses to have functionality upon click */
     public void uponPress()
     {
         System.out.println("button pressed");

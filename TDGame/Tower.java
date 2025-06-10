@@ -75,6 +75,7 @@ public class Tower extends Actor
     
     public void runAttackSystem()
     {
+        // see if attack can be made
         if (!(cooldownTimer <= 0))
         {
             cooldownTimer--;
@@ -91,12 +92,13 @@ public class Tower extends Actor
         // Find the enemy closest to the end
         for (Enemy enemy : enemies)
         {
-            if (target == null || target.getRemainingPathLength() <= enemy.getRemainingPathLength())
+            if (target == null || target.getRemainingPathLength() >= enemy.getRemainingPathLength())
             {
                 target = enemy;
             }
         }
         
+        // if no target selected, face to the right
         if (target == null)
         {
             setRotation(0);
@@ -104,6 +106,7 @@ public class Tower extends Actor
             setImage(defaultImage);
             return;
         }
+        // otherwise turn towards the target and shoot a projectile
         else
         {
             turnTowards(target.getX(), target.getY());
@@ -118,6 +121,7 @@ public class Tower extends Actor
         }        
     }
     
+    /** Allow selection via the menu */
     public void uponPress()
     {
         world.setSelectedGridPoint(position);
@@ -130,18 +134,20 @@ public class Tower extends Actor
         world.removeObject(this);
     }
     
+    /** If possible, upgrade the tower */
     public void upgradeTower()
     {
+        // Check if enough money
         if (world.getMoney() >= upgradePrice)
         {
+            // Increase stats
             world.spendMoney(upgradePrice);
             damage *= 2;
             range++;
             saleValue += upgradePrice / 2;
             upgradePrice *= 2;
             
-            // System.out.println("UPGRADE COMPLETE");
-            
+            // Get larger
             if (getImage().getHeight() < world.getTileSideLength())
             {
                 int newSideLength = getImage().getHeight() + (((world.getTileSideLength()) - (getImage().getHeight())) / 3);
