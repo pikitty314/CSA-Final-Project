@@ -19,7 +19,7 @@ public class GameEndWorld extends BaseWorld
         {
             background =  new GreenfootImage("images/win-screen.png");
             GreenfootSound playMe = new GreenfootSound("sounds/win.wav");
-            playMe.setVolume(60);
+            playMe.setVolume(75);
             playMe.play();
         }
         else

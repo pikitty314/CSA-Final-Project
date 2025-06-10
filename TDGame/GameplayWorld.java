@@ -25,6 +25,7 @@ public class GameplayWorld extends BaseWorld
     
     // wave related variables
     int enemiesRemainingInWave = 0;
+    int enemiesLeftToWinWave = 0;
     int enemyWait = 0;
     GreenfootSound advanceWaveSound;
     
@@ -92,7 +93,7 @@ public class GameplayWorld extends BaseWorld
         bossEnemyList.add(EnemyTypes.DRAGONFLY);
         
         advanceWaveSound = new GreenfootSound("sounds/wave-defeated.wav");
-        advanceWaveSound.setVolume(45);
+        advanceWaveSound.setVolume(65);
         
         advanceWave();
     }
@@ -111,7 +112,7 @@ public class GameplayWorld extends BaseWorld
         }
         
         // Create enemies
-        if (enemyWait <= 0)
+        if (enemyWait <= 0 && enemiesRemainingInWave > 0)
         {
             addObject(
                 new Enemy(
@@ -122,6 +123,7 @@ public class GameplayWorld extends BaseWorld
                     currentEnemyType.getReward()),
                 0, 0);
             enemyWait = 100;
+            enemiesRemainingInWave--;
         }
         else
         {
@@ -129,7 +131,7 @@ public class GameplayWorld extends BaseWorld
         }
         
         // check if win
-        if (enemiesRemainingInWave <= 0)
+        if (enemiesLeftToWinWave <= 0)
         {
             advanceWave();
         }
@@ -185,19 +187,21 @@ public class GameplayWorld extends BaseWorld
         
         wave++;
         
-        if (wave >= waveGoal)
+        if (wave > waveGoal)
         {
             Greenfoot.setWorld(new GameEndWorld(true));
         }
-        else if (wave % 20 != 0)
+        else if (wave % 25 != 0)
         {
             currentEnemyType = regularEnemyList.get((int)(Math.random() * regularEnemyList.size()));
             enemiesRemainingInWave = (int)(Math.random() * 15) + wave;
+            enemiesLeftToWinWave = enemiesRemainingInWave;
         }
         else
         {
             currentEnemyType = bossEnemyList.get((int)(Math.random() * bossEnemyList.size()));
             enemiesRemainingInWave = 1;
+            enemiesLeftToWinWave = enemiesRemainingInWave;
         }
         
         if (wave != 1)
@@ -214,7 +218,7 @@ public class GameplayWorld extends BaseWorld
     public void killEnemy(int award)
     {
         addMoney(award);
-        enemiesRemainingInWave--;
+        enemiesLeftToWinWave--;
     }
     
     

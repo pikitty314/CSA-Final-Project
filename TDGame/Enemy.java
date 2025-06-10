@@ -147,7 +147,7 @@ public class Enemy extends Actor
         {
             Greenfoot.playSound("sounds/enemy-death.wav");
             getWorld().removeObject(this);
-            world.killEnemy(reward); // 25 is just a filler value
+            world.killEnemy(reward);
         }
     }
     

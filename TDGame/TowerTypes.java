@@ -8,9 +8,9 @@ import greenfoot.*;
  */
 public enum TowerTypes  
 {
-    STINGER (new GreenfootImage("images/towers/stinger-retracted.png"), new GreenfootImage("images/towers/stinger-animated.gif"), new GreenfootImage("projectiles/stinger.png"), 1, 50, 10, 100),
+    STINGER (new GreenfootImage("images/towers/stinger-retracted.png"), new GreenfootImage("images/towers/stinger-extended.png"), new GreenfootImage("projectiles/stinger.png"), 1, 50, 10, 100),
     POLLEN_TURRET(new GreenfootImage("images/towers/pollen-turret.png"), new GreenfootImage("projectiles/pollen.png"), 3, 75, 25, 150),
-    STAR_SLINGER(new GreenfootImage("images/towers/star-slinger.png"), new GreenfootImage("projectiles/throwing-star.png"), 5, 200, 200, 200),
+    STAR_SLINGER(new GreenfootImage("images/towers/star-slinger.png"), new GreenfootImage("projectiles/throwing-star.png"), 5, 250, 200, 200),
     TASER(new GreenfootImage("images/towers/taser.png"), new GreenfootImage("projectiles/taser-bolt.png"), 12, 100, 100, 250);
     
     private final GreenfootImage image;
