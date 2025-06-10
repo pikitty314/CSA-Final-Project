@@ -166,6 +166,7 @@ public class GameplayWorld extends BaseWorld
     public void loseLife()
     {
         lives--;
+        enemiesLeftToWinWave--;
         
         if (lives <= 0)
         {
