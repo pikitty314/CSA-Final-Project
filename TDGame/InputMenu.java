@@ -35,6 +35,7 @@ public class InputMenu extends Actor
         world.addObject(new Counter("Wave: ", () -> world.getWave(), world.getWindowWidth()/40), 9*(world.getWindowWidth()/10), world.getWindowHeight()/5);
         
         // Pause button
+        world.addObject(new ReturnToWelcomeButton(world.getWindowWidth()/6, world.getWindowWidth()/30, true), (int)(world.getWindowWidth() * 0.9), 25 * (world.getWindowHeight() / 30));
         world.addObject(new PauseButton(world), (int)(world.getWindowWidth() * 0.9), 28 * (world.getWindowHeight() / 30));
         
         // Fill addTowerButtons list

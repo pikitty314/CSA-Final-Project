@@ -16,6 +16,22 @@ public class ReturnToWelcomeButton extends Button
         this.setImage(picture);
     }
     
+    public ReturnToWelcomeButton(int xSize, int ySize, boolean quit)
+    {
+        if (quit)
+        {
+            GreenfootImage picture = new GreenfootImage("images/quit-button.png");
+            picture.scale(xSize, ySize);
+            this.setImage(picture);
+        }
+        else
+        {
+            GreenfootImage picture = new GreenfootImage("images/home-button.png");
+            picture.scale(xSize, ySize);
+            this.setImage(picture);
+        }
+    }
+    
     @Override
     public void uponPress()
     {
