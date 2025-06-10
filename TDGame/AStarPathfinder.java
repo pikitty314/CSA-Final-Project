@@ -1,6 +1,7 @@
 import java.util.List;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Queue;
 import java.util.PriorityQueue;
 import java.util.Comparator;
 
@@ -90,11 +91,23 @@ public class AStarPathfinder
         HashMap<Point, Integer> fScore = new HashMap<>();
         fScore.put(start, heuristic(start, end));
         
-        /* The nasty bit basically puts the point with the lowest fScore first 
+        /* *** ▼ IMPORTANT ▼ ***
+         * 
+         * The web version does NOT support PriorityQueues, so you MUST use
+         * PriorityQueueWeb (which uses an ArrayList instead) if publishing
+         * to the web.
+         * 
+         * (Uncomment the PriorityQueueWeb and comment the regular one ONLY
+         * when publishing to the web)
+         * 
+         * *** ▲ IMPORTANT ▲ ***
+         * 
+         * The nasty bit basically puts the point with the lowest fScore first 
            It's a lambda with point passed in that returns the fScore of that point or the max int if not found
            I feel like there has to be a better way to do this
            */
         PriorityQueue<Point> openSet = new PriorityQueue<>(Comparator.comparingInt(point -> fScore.getOrDefault(point, Integer.MAX_VALUE)));
+        // PriorityQueueWeb openSet = new PriorityQueueWeb(fScore);
         openSet.add(start);
         
         int pointsChecked = 0;
