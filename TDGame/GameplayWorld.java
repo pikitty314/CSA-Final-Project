@@ -19,15 +19,27 @@ public class GameplayWorld extends BaseWorld
     int lives = 20;
     int wave = 0;
     
+    int waveGoal = Integer.MAX_VALUE;
+    
     // wave related variables
     int enemiesRemainingInWave = 0;
     int enemyWait = 0;
+    GreenfootSound advanceWaveSound;
     
     ArrayList<EnemyTypes> regularEnemyList = new ArrayList<EnemyTypes>();
     ArrayList<EnemyTypes> bossEnemyList = new ArrayList<EnemyTypes>();
     EnemyTypes currentEnemyType = EnemyTypes.DRAGONFLY;
     
     boolean isPlaying;
+    
+    public GameplayWorld(boolean endless)
+    {
+        this();
+        if(!endless)
+        {
+            waveGoal = 25;
+        }
+    }
     
     /**
      * Constructor for objects of class GameplayWorld.
@@ -70,6 +82,9 @@ public class GameplayWorld extends BaseWorld
         regularEnemyList.add(EnemyTypes.HEMIPTERA);
         
         bossEnemyList.add(EnemyTypes.DRAGONFLY);
+        
+        advanceWaveSound = new GreenfootSound("sounds/wave-defeated.wav");
+        advanceWaveSound.setVolume(45);
         
         advanceWave();
     }
@@ -140,6 +155,11 @@ public class GameplayWorld extends BaseWorld
     public void loseLife()
     {
         lives--;
+        
+        if (lives <= 0)
+        {
+            Greenfoot.setWorld(new GameEndWorld(false));
+        }
     }
     
     public int getLivesRemaining()
@@ -155,7 +175,11 @@ public class GameplayWorld extends BaseWorld
         
         wave++;
         
-        if (wave % 20 != 0)
+        if (wave >= waveGoal)
+        {
+            Greenfoot.setWorld(new GameEndWorld(true));
+        }
+        else if (wave % 20 != 0)
         {
             currentEnemyType = regularEnemyList.get((int)(Math.random() * regularEnemyList.size()));
             enemiesRemainingInWave = (int)(Math.random() * 15) + wave;
@@ -164,6 +188,11 @@ public class GameplayWorld extends BaseWorld
         {
             currentEnemyType = bossEnemyList.get((int)(Math.random() * bossEnemyList.size()));
             enemiesRemainingInWave = 1;
+        }
+        
+        if (wave != 1)
+        {
+            advanceWaveSound.play();
         }
     }
     

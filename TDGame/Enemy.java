@@ -158,6 +158,7 @@ public class Enemy extends Actor
         health -= amount;
         if (health <= 0)
         {
+            Greenfoot.playSound("sounds/enemy-death.wav");
             getWorld().removeObject(this);
             world.killEnemy(reward); // 25 is just a filler value
         }
