@@ -114,12 +114,13 @@ public class GameplayWorld extends BaseWorld
         // Create enemies
         if (enemyWait <= 0 && enemiesRemainingInWave > 0)
         {
+            int difficultyMultiplier = (int)(wave * (Math.log(wave)/Math.log(5)));
             addObject(
                 new Enemy(
                     this,
                     grid,
                     currentEnemyType.getImage(),
-                    currentEnemyType.getBaseHealth() * wave,
+                    currentEnemyType.getBaseHealth() * difficultyMultiplier,
                     currentEnemyType.getReward()),
                 0, 0);
             enemyWait = 100;
