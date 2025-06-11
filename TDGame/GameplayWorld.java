@@ -93,7 +93,7 @@ public class GameplayWorld extends BaseWorld
         bossEnemyList.add(EnemyTypes.DRAGONFLY);
         
         advanceWaveSound = new GreenfootSound("sounds/wave-defeated.wav");
-        advanceWaveSound.setVolume(65);
+        advanceWaveSound.setVolume(50);
         
         advanceWave();
     }
